@@ -1,41 +1,39 @@
 package com.tracker.ProductPriceTrackingSystem.controller;
 
+import com.tracker.ProductPriceTrackingSystem.model.ECommerceSite;
 import com.tracker.ProductPriceTrackingSystem.model.Product;
-import com.tracker.ProductPriceTrackingSystem.repository.ProductRepository;
+import com.tracker.ProductPriceTrackingSystem.service.ECommerceSiteService;
 import com.tracker.ProductPriceTrackingSystem.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.jpa.repository.Modifying;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/product")
-public class ProductController {
+@RequestMapping("/ecommercesite")
+public class ECommerceSiteController {
 
     @Autowired
-    ProductService productService;
+    ECommerceSiteService eCommerceSiteService;
 
     @GetMapping(value = "")
     public Object getProducts() {
-        return productService.allProducts();
+        return eCommerceSiteService.allSites();
     }
 
-
     @PostMapping(value = "")
-    public String createProduct(@RequestBody  Product product) {
-         productService.createProduct(product);
+    public String createProduct(@RequestBody  ECommerceSite eCommerceSite) {
+        eCommerceSiteService.createSite(eCommerceSite);
          return "created";
     }
 
     @DeleteMapping("/{id}")
     public String delete(@PathVariable  Long id) {
-        productService.deleteProduct(id);
+        eCommerceSiteService.deleteSite(id);
         return "deleted";
     }
 
     @PutMapping("/{id}")
-    public String update(@PathVariable  Long id,@RequestBody  Product product){
-        productService.updateProduct(id,product);
+    public String update(@PathVariable  Long id,@RequestBody  ECommerceSite eCommerceSite){
+        eCommerceSiteService.updateSite(id,eCommerceSite);
         return "updated";
     }
 }

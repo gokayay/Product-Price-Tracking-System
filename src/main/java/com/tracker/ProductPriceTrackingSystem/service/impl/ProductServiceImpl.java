@@ -26,10 +26,11 @@ public class ProductServiceImpl implements ProductService {
         Optional<Product> existedProduct = productRepository.findById(id);
 
         if (!existedProduct.isPresent())
-            throw new UnsupportedOperationException("Yok bole bısey");
-        Product exProcduct = existedProduct.get();
-        exProcduct.setProductComment(product.getProductComment());
-        productRepository.save(exProcduct);
+            throw new UnsupportedOperationException("Product not found");
+        Product exProduct = existedProduct.get();
+        exProduct.setProductName(product.getProductName());
+        exProduct.setProductComment(product.getProductComment());
+        productRepository.save(exProduct);
     }
 
 
