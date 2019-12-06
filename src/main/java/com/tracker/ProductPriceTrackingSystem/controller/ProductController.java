@@ -1,11 +1,8 @@
 package com.tracker.ProductPriceTrackingSystem.controller;
 
 import com.tracker.ProductPriceTrackingSystem.model.Product;
-import com.tracker.ProductPriceTrackingSystem.repository.ProductRepository;
 import com.tracker.ProductPriceTrackingSystem.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.jpa.repository.Modifying;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -20,6 +17,10 @@ public class ProductController {
         return productService.allProducts();
     }
 
+    @GetMapping ("/{id}")
+    public Object getOneProduct(@PathVariable Long id){
+        return productService.oneProduct(id);
+    }
 
     @PostMapping(value = "")
     public String createProduct(@RequestBody  Product product) {

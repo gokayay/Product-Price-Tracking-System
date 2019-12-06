@@ -19,6 +19,11 @@ public class ECommerceSiteController {
         return eCommerceSiteService.allSites();
     }
 
+    @GetMapping ("/{id}")
+    public Object getOneSite(@PathVariable Long id){
+        return eCommerceSiteService.oneSite(id);
+    }
+
     @PostMapping(value = "")
     public String createProduct(@RequestBody  ECommerceSite eCommerceSite) {
         eCommerceSiteService.createSite(eCommerceSite);

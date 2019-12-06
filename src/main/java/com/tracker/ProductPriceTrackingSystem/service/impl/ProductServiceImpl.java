@@ -27,15 +27,17 @@ public class ProductServiceImpl implements ProductService {
 
         if (!existedProduct.isPresent())
             throw new UnsupportedOperationException("Product not found");
+
         Product exProduct = existedProduct.get();
         exProduct.setProductName(product.getProductName());
         exProduct.setProductComment(product.getProductComment());
+
         productRepository.save(exProduct);
     }
 
 
     @Override
-    public void deleteProduct(long id) {
+    public void deleteProduct(Long id) {
 
         productRepository.deleteById(id);
     }
@@ -43,6 +45,11 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public List<Product> allProducts() {
         return (List<Product>) productRepository.findAll();
+    }
+
+    @Override
+    public Optional<Product> oneProduct(Long id) {
+        return productRepository.findById(id);
     }
 
 

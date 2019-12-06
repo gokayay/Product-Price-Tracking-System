@@ -4,6 +4,7 @@ import com.tracker.ProductPriceTrackingSystem.model.ECommerceSite;
 import com.tracker.ProductPriceTrackingSystem.model.Product;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface ECommerceSiteService {
 
@@ -15,4 +16,5 @@ public interface ECommerceSiteService {
 
     List<ECommerceSite> allSites();
 
+    Optional<ECommerceSite> oneSite(Long id);
 }
