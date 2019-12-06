@@ -20,6 +20,11 @@ public class PriceController {
         return priceService.allPrices();
     }
 
+    @GetMapping ("/{id}")
+    public Object getOnePrice(@PathVariable Long id){
+        return priceService.onePrice(id);
+    }
+
     @PostMapping(value = "")
     public String createPrices(@RequestBody Price price) {
         priceService.createPrice(price);

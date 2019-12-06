@@ -1,7 +1,13 @@
 package com.tracker.ProductPriceTrackingSystem.model;
 
-import javax.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 
+import javax.persistence.*;
+import java.util.Set;
+
+@Getter
+@Setter
 @Entity
 @Table(name = "ecommercesites")
 public class ECommerceSite {
@@ -19,27 +25,7 @@ public class ECommerceSite {
     @Column
     private String siteXpath;
 
-    public Long getId() {
-        return id;
-    }
+    @OneToMany(mappedBy = "price", cascade = CascadeType.ALL)
+    private Set<ECommerceSite> eCommerceSites;
 
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getSiteName() {
-        return siteName;
-    }
-
-    public void setSiteName(String siteName) {
-        this.siteName = siteName;
-    }
-
-    public String getSiteXpath() {
-        return siteXpath;
-    }
-
-    public void setSiteXpath(String siteXpath) {
-        this.siteXpath = siteXpath;
-    }
 }

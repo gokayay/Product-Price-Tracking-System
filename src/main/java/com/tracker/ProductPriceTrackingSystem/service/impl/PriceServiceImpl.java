@@ -39,7 +39,7 @@ public class PriceServiceImpl implements PriceService {
 
 
     @Override
-    public void deletePrice(long id) {
+    public void deletePrice(Long id) {
 
         priceRepository.deleteById(id);
     }
@@ -47,6 +47,11 @@ public class PriceServiceImpl implements PriceService {
     @Override
     public List<Price> allPrices() {
         return (List<Price>) priceRepository.findAll();
+    }
+
+    @Override
+    public Optional<Price> onePrice(Long id) {
+        return priceRepository.findById(id);
     }
 
 

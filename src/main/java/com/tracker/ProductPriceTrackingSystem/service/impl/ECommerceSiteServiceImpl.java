@@ -1,6 +1,7 @@
 package com.tracker.ProductPriceTrackingSystem.service.impl;
 
 import com.tracker.ProductPriceTrackingSystem.model.ECommerceSite;
+import com.tracker.ProductPriceTrackingSystem.model.Product;
 import com.tracker.ProductPriceTrackingSystem.repository.ECommerceSiteRepository;
 import com.tracker.ProductPriceTrackingSystem.service.ECommerceSiteService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,6 +44,11 @@ public class ECommerceSiteServiceImpl implements ECommerceSiteService {
     @Override
     public List<ECommerceSite> allSites() {
         return (List<ECommerceSite>) eCommerceSiteRepository.findAll();
+    }
+
+    @Override
+    public Optional<ECommerceSite> oneSite(Long id) {
+        return eCommerceSiteRepository.findById(id);
     }
 
 

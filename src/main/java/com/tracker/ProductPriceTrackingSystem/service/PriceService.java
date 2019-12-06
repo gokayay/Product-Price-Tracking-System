@@ -2,8 +2,10 @@ package com.tracker.ProductPriceTrackingSystem.service;
 
 import com.tracker.ProductPriceTrackingSystem.model.Price;
 import com.tracker.ProductPriceTrackingSystem.model.Product;
+import org.springframework.http.ResponseEntity;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface PriceService {
 
@@ -11,8 +13,10 @@ public interface PriceService {
 
     void updatePrice(Long id, Price price);
 
-    void deletePrice(long id);
+    void deletePrice(Long id);
 
     List<Price> allPrices();
+
+    Optional<Price> onePrice(Long id);
 
 }

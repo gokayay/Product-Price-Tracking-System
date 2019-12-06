@@ -3,6 +3,7 @@ package com.tracker.ProductPriceTrackingSystem.service;
 import com.tracker.ProductPriceTrackingSystem.model.Product;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface ProductService {
 
@@ -10,8 +11,9 @@ public interface ProductService {
 
     void updateProduct(Long id,Product product);
 
-    void deleteProduct(long id);
+    void deleteProduct(Long id);
 
     List<Product> allProducts();
 
+    Optional<Product> oneProduct(Long id);
 }
