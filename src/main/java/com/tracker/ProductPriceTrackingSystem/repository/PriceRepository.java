@@ -11,5 +11,4 @@ import java.util.Optional;
 public interface PriceRepository extends JpaRepository<Price,Long> {
 
    Optional<Price> findById(Long id);
-  // Optional<Price> findByOtherIds(Long id, Long productId, Long siteId);
 }

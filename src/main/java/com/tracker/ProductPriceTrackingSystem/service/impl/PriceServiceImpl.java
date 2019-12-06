@@ -34,6 +34,7 @@ public class PriceServiceImpl implements PriceService {
 
         exPrice.setPrice(price.getPrice());
         exPrice.setDate(price.getDate());
+        exPrice.setUrl(price.getUrl());
         priceRepository.save(exPrice);
     }
 

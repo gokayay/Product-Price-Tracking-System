@@ -7,8 +7,6 @@ import lombok.Setter;
 import javax.persistence.*;
 import java.util.Set;
 
-@Getter
-@Setter
 @Entity
 @Table(name = "products")
 public class Product {
@@ -26,6 +24,41 @@ public class Product {
     @Column
     private String productComment;
 
-    @OneToMany(mappedBy = "price", cascade = CascadeType.ALL)
-    private Set<Product> products;
+    @OneToMany(mappedBy = "product")
+    private Set<Price> prices;
+
+
+    ///////////////////////////////////////
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getProductName() {
+        return productName;
+    }
+
+    public void setProductName(String productName) {
+        this.productName = productName;
+    }
+
+    public String getProductComment() {
+        return productComment;
+    }
+
+    public void setProductComment(String productComment) {
+        this.productComment = productComment;
+    }
+
+    public Set<Price> getPrices() {
+        return prices;
+    }
+
+    public void setPrices(Set<Price> prices) {
+        this.prices = prices;
+    }
 }

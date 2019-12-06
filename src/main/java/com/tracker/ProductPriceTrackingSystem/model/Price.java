@@ -16,7 +16,8 @@ import java.util.Date;
 @Table(name = "prices")
 public class Price {
 
-    public Price(){ }
+    public Price()
+    { }
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -24,12 +25,10 @@ public class Price {
 
     @ManyToOne
     @JoinColumn(name = "productId", nullable = false)
-    @OnDelete(action = OnDeleteAction.CASCADE)
     private Product product;
 
     @ManyToOne
     @JoinColumn(name = "siteId", nullable = false)
-    @OnDelete(action = OnDeleteAction.CASCADE)
     private ECommerceSite eCommerceSite;
 
     @Column
@@ -38,4 +37,61 @@ public class Price {
     @Column
     private String date;
 
+    @Column
+    private String url;
+
+
+
+
+
+
+///////////////////////////////////////
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Product getProduct() {
+        return product;
+    }
+
+    public void setProduct(Product product) {
+        this.product = product;
+    }
+
+    public ECommerceSite geteCommerceSite() {
+        return eCommerceSite;
+    }
+
+    public void seteCommerceSite(ECommerceSite eCommerceSite) {
+        this.eCommerceSite = eCommerceSite;
+    }
+
+    public String getPrice() {
+        return price;
+    }
+
+    public void setPrice(String price) {
+        this.price = price;
+    }
+
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
+    }
+
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
+    }
 }
