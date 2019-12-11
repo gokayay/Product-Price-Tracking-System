@@ -1,8 +1,13 @@
 package com.tracker.ProductPriceTrackingSystem.crawler;
 
+import org.springframework.stereotype.Component;
+
+import javax.persistence.Column;
+
+@Component
 public class StringMoneyConverter {
 
-    StringMoneyConverter(){
+    public StringMoneyConverter(){
         // bu class düzensiz bir şekilde crawl edilen price değerleri için düzeltip double'a çevirme işlemi yapar.
     }
 
