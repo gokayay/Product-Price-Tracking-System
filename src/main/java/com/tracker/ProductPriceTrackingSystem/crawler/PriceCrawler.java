@@ -2,12 +2,13 @@ package com.tracker.ProductPriceTrackingSystem.crawler;
 
 import java.util.List;
 
+import com.tracker.ProductPriceTrackingSystem.controller.ProductController;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.springframework.stereotype.Component;
 
-import javax.persistence.criteria.CriteriaBuilder;
 
 public class PriceCrawler {
 
