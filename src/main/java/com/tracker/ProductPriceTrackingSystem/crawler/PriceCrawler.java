@@ -7,43 +7,52 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 
+import javax.persistence.criteria.CriteriaBuilder;
+
 public class PriceCrawler {
 
     public static void main(String[] args) {
-        // Create a new instance of the Firefox driver
-        // Notice that the remainder of the code relies on the interface,
-        // not the implementation.
+
+        String N11Xpath="//*[@id=\"contentProDetail\"]/div/div[3]/div[2]/div[3]/div[2]/div/div/div/ins";
+        String HbXpath="//*[@id=\"offering-price\"]/span[1]";
+        String AmXpath="//*[@id=\"priceblock_ourprice\"]";
+        String TrXpath="//*[@id=\"product-detail-app\"]/div/div[2]/div[2]/div[1]/div[1]/div[1]/div[2]/div/span[2]";
+        String GgXpath="//*[@id=\"sp-price-lowPrice\"]";
+
+        //////
+        String macHb ="https://www.hepsiburada.com/apple-macbook-pro-touch-bar-intel-core-i7-8750h-16gb-256gb-ssd-radeon-pro-555x-macos-15-qhd-tasinabilir-bilgisayar-mr932tu-a-gri-p-HBV00000CVXB3?magaza=N%C3%96TRON";
+        String macN11 ="https://urun.n11.com/dizustu-bilgisayar/apple-macbook-pro-mv902tua-15-inc-6c-i7touch-bar26ghz256gb-s-P360031377";
+        String macAm="https://www.amazon.com.tr/Apple-Macbook-Intel-%C4%B0%C5%9Flemci-Radeon/dp/B07679MWCQ/ref=sr_1_4?__mk_tr_TR=%C3%85M%C3%85%C5%BD%C3%95%C3%91&keywords=macbook+pro&qid=1576044727&sr=8-4";
+        String macTr="https://www.trendyol.com/apple/apple-macbook-pro-intel-core-i7-9750h-16gb-256gb-ssd-radeon-pro-555x-macos-15-fhd-mv902tu-a-p-6794295";
+        String macGg="https://www.gittigidiyor.com/dizustu-laptop-notebook-bilgisayar/apple-macbook-pro-154-mv922tua_spp_558196?id=500097980";
+
+        //////
         WebDriver driver = new ChromeDriver();
 
-        // And now use this to visit Google
-        driver.get("http://denvycom.com/blog/");
-        // Alternatively the same thing can be done like this
-        // driver.navigate().to("http://www.google.com");
+        //////
+        driver.get(macHb);
+        WebElement elementHb = driver.findElement(By.xpath(HbXpath));
+        System.out.println(elementHb.getText());
 
-        // Find the Denvycom search input element by its name
-        WebElement element = driver.findElement(By.id("s"));
 
-        // Enter something to search for
-        element.sendKeys("research");
+        driver.get(macN11);
+        WebElement elementN11 = driver.findElement(By.xpath(N11Xpath));
+        System.out.println(elementN11.getText());
 
-        // Now submit the form. WebDriver will find the form for us from the element
-        element.submit();
+        driver.get(macAm);
+        WebElement elementAm= driver.findElement(By.xpath(AmXpath));
+        System.out.println(elementAm.getText());
 
-        // Check the title of the page
-        System.out.println("Page title is: " + driver.getTitle());
-        // Should see: "All Articles on Denvycom related to the Keyword "Research""
+        driver.get(macTr);
+        WebElement elementTr= driver.findElement(By.xpath(TrXpath));
+        System.out.println(elementTr.getText());
 
-        //Get the title of all posts
-        List<WebElement> titles = driver.findElements(By.cssSelector("h2.page-header"));
-        List<WebElement> dates = driver.findElements(By.cssSelector("span.entry-date"));
-        System.out.println(" =============== Denvycom Articles on Research ================= ");
-        for (int j = 0; j < titles.size(); j++) {
-            System.out.println( dates.get(j).getText() + "\t - " + titles.get(j).getText() ) ;
-        }
+        driver.get(macGg);
+        WebElement elementGg= driver.findElement(By.xpath(GgXpath));
+        System.out.println(elementGg.getText());
 
-        //Close the browser
+        //////
         driver.quit();
-
     }
 
 }
