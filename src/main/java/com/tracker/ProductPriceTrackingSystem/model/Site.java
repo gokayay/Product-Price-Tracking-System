@@ -10,10 +10,10 @@ import java.util.Set;
 @Getter
 @Setter
 @Entity
-@Table(name = "ecommercesites")
-public class ECommerceSite {
+@Table(name = "sites")
+public class Site {
 
-    public ECommerceSite()
+    public Site()
     { }
 
     @Id
@@ -24,12 +24,16 @@ public class ECommerceSite {
     private String siteName;
 
     @Column
+    private String siteUrl;
+
+    @Column
     private String siteXpath;
 
-    @OneToMany(mappedBy = "eCommerceSite")
+    @OneToMany(mappedBy = "site")
     private Set<Price> prices;
 
-    ///////////////////////////////////////
+    @OneToMany(mappedBy = "site")
+    private Set<ProductAddress> productAddresses;
 
     public Long getId() {
         return id;
@@ -47,6 +51,14 @@ public class ECommerceSite {
         this.siteName = siteName;
     }
 
+    public String getSiteUrl() {
+        return siteUrl;
+    }
+
+    public void setSiteUrl(String siteUrl) {
+        this.siteUrl = siteUrl;
+    }
+
     public String getSiteXpath() {
         return siteXpath;
     }
@@ -61,5 +73,13 @@ public class ECommerceSite {
 
     public void setPrices(Set<Price> prices) {
         this.prices = prices;
+    }
+
+    public Set<ProductAddress> getProductAddresses() {
+        return productAddresses;
+    }
+
+    public void setProductAddresses(Set<ProductAddress> productAddresses) {
+        this.productAddresses = productAddresses;
     }
 }
