@@ -1,13 +1,15 @@
 package com.tracker.ProductPriceTrackingSystem.repository;
 
 import com.tracker.ProductPriceTrackingSystem.model.Price;
+import com.tracker.ProductPriceTrackingSystem.model.Product;
+import com.tracker.ProductPriceTrackingSystem.model.ProductAddress;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.Optional;
 
 @Repository
-public interface PriceRepository extends JpaRepository<Price,Long> {
+public interface ProductAddressRepository extends JpaRepository<ProductAddress,Long> {
 
-   Optional<Price> findById(Long id);
+    Optional<ProductAddress> findById(Long id);
 }

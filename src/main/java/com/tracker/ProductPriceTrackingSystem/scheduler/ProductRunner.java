@@ -1,14 +1,13 @@
 package com.tracker.ProductPriceTrackingSystem.scheduler;
 
 import com.tracker.ProductPriceTrackingSystem.crawler.StringMoneyConverter;
-import com.tracker.ProductPriceTrackingSystem.model.ECommerceSite;
+import com.tracker.ProductPriceTrackingSystem.model.ProductAddress;
+import com.tracker.ProductPriceTrackingSystem.model.Site;
 import com.tracker.ProductPriceTrackingSystem.model.Price;
-import com.tracker.ProductPriceTrackingSystem.model.Product;
-import com.tracker.ProductPriceTrackingSystem.repository.ECommerceSiteRepository;
+import com.tracker.ProductPriceTrackingSystem.repository.ProductAddressRepository;
+import com.tracker.ProductPriceTrackingSystem.repository.SiteRepository;
 import com.tracker.ProductPriceTrackingSystem.repository.PriceRepository;
 import com.tracker.ProductPriceTrackingSystem.repository.ProductRepository;
-import lombok.ToString;
-import lombok.var;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -17,13 +16,11 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Component;
 
 import javax.persistence.EntityNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @Component
 public class ProductRunner implements CommandLineRunner {
@@ -35,7 +32,9 @@ public class ProductRunner implements CommandLineRunner {
     @Autowired
     private PriceRepository priceRepository;
     @Autowired
-    private ECommerceSiteRepository eCommerceSiteRepository;
+    private SiteRepository siteRepository;
+    @Autowired
+    private ProductAddressRepository productAddressRepository;
 
     @Override
     public void run(String... args) throws Exception {
@@ -47,60 +46,52 @@ public class ProductRunner implements CommandLineRunner {
 
         StringMoneyConverter Smc =new StringMoneyConverter();
 
-        ArrayList<String> myXpathList = new ArrayList<>();
-        ArrayList<String> myHbPriceList = new ArrayList<>();
-        ArrayList<String> myN11PriceList = new ArrayList<>();
-        ArrayList<String> myTrPriceList = new ArrayList<>();
-        ArrayList<String> myGgPriceList = new ArrayList<>();
-        ArrayList<String> myAmPriceList = new ArrayList<>();
 
 
-        for(int i=1;i<=5;i++){
+        List<Site> siteList=siteRepository.findAll();
 
-            ECommerceSite eCommerceSite = eCommerceSiteRepository.findById((long) i)
-                    .orElseThrow(() -> new EntityNotFoundException("Holy shit, you screwed up!"));
-
-
-            myXpathList.add(eCommerceSite.getSiteXpath());
-
-            logger.info("------------------------");
-            logger.info("------------------------");
-        }
-        System.out.println(myXpathList.get(0));
-        System.out.println(myXpathList.get(1));
-        System.out.println(myXpathList.get(2));
-        System.out.println(myXpathList.get(3));
-        System.out.println(myXpathList.get(4));
+       // System.out.println(siteList.get(0));
 
 
-       List<Price> prices=priceRepository.findAll();
+        Site siteHb = siteRepository.findById((long) 1)
+                .orElseThrow(() -> new EntityNotFoundException("Holy shit, you screwed up!"));
 
-       prices.forEach(price -> {
-      price.setPrice("bjb");
-priceRepository.save(price);
-       });
+        String siteXpathHb = siteHb.getSiteXpath();
 
 
-        for(int i=6;i<=10;i++) {  ///////////////////////////////Burası dinamik olmalı////////////////////////////////
-            Price priceUrl= priceRepository.findById((long)i)
-                    .orElseThrow(() -> new EntityNotFoundException("Holy shit, you screwed up!"));
+        Site siteTr = siteRepository.findById((long) 2)
+                .orElseThrow(() -> new EntityNotFoundException("Holy shit, you screwed up!"));
 
-            logger.info("------------------------");
-            logger.info("------------------------");
+        String siteXpathTr = siteTr.getSiteXpath();
 
-            Long eCommerceId =priceUrl.geteCommerceSite().getId();
-            if(eCommerceId == 1)
-                myHbPriceList.add(priceUrl.getUrl());
-            else if(eCommerceId == 2)
-                myN11PriceList.add(priceUrl.getUrl());
-            else if(eCommerceId == 3)
-                myTrPriceList.add(priceUrl.getUrl());
-            else if(eCommerceId == 4)
-                myGgPriceList.add(priceUrl.getUrl());
-            else if(eCommerceId == 5)
-                myAmPriceList.add(priceUrl.getUrl());
-        }
+        Site siteAm = siteRepository.findById((long) 3)
+                .orElseThrow(() -> new EntityNotFoundException("Holy shit, you screwed up!"));
 
+        String siteXpathAm = siteAm.getSiteXpath();
+
+        Site siteN11 = siteRepository.findById((long) 4)
+                .orElseThrow(() -> new EntityNotFoundException("Holy shit, you screwed up!"));
+
+        String siteXpathN11 = siteN11.getSiteXpath();
+
+        Site siteGg = siteRepository.findById((long) 1)
+                .orElseThrow(() -> new EntityNotFoundException("Holy shit, you screwed up!"));
+
+        String siteXpathGg = siteGg.getSiteXpath();
+
+
+        /////////////////////////////
+
+
+        List<ProductAddress> productAddressList=productAddressRepository.findAll();
+
+        productAddressList.forEach((i) -> {
+            String productPath = i.getProductPath();
+            System.out.println(productPath);
+        });
+
+
+/*
         WebDriver driver = new ChromeDriver();
 
         //if website is hepsiburada.com
@@ -172,32 +163,6 @@ priceRepository.save(price);
         System.out.println(elementAm_d);
 
         driver.quit();
-
-
-        for (int i=6;i<=10;i++){
-            Price price = priceRepository.findById((long) i)
-                    .orElseThrow(() -> new EntityNotFoundException("Holy shit, you screwed up!"));
-            if(i == 6) {
-                price.setPrice(elementHb_ds);
-            }
-            else if(i == 7){
-                price.setPrice(elementN11_ds);
-            }
-            else if(i == 8){
-                price.setPrice(elementTr_ds);
-            }
-             // 9 and 10
-        }
-
-
-
+*/
     }
-
-
-
-
-
-
-
-
 }

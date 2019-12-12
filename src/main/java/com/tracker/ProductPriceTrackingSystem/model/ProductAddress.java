@@ -4,26 +4,23 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
-import java.util.Date;
+import java.util.Set;
 
+@Entity
 @Getter
 @Setter
-@Entity
-@Table(name = "prices")
-public class Price {
+@Table(name = "productAddresses")
+public class ProductAddress {
 
-    public Price()
+    public ProductAddress()
     { }
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column
-    private Double price;
-
-    @Column
-    private Date date;
+    @Column(unique = false)
+    private String productPath;
 
     @ManyToOne
     @JoinColumn(name = "productId", nullable = false)
@@ -42,20 +39,12 @@ public class Price {
         this.id = id;
     }
 
-    public Double getPrice() {
-        return price;
+    public String getProductPath() {
+        return productPath;
     }
 
-    public void setPrice(Double price) {
-        this.price = price;
-    }
-
-    public Date getDate() {
-        return date;
-    }
-
-    public void setDate(Date date) {
-        this.date = date;
+    public void setProductPath(String productPath) {
+        this.productPath = productPath;
     }
 
     public Product getProduct() {

@@ -8,6 +8,8 @@ import javax.persistence.*;
 import java.util.Set;
 
 @Entity
+@Getter
+@Setter
 @Table(name = "products")
 public class Product {
 
@@ -27,8 +29,9 @@ public class Product {
     @OneToMany(mappedBy = "product")
     private Set<Price> prices;
 
+    @OneToMany(mappedBy = "product")
+    private Set<ProductAddress> productAddresses;
 
-    ///////////////////////////////////////
 
     public Long getId() {
         return id;
@@ -60,5 +63,13 @@ public class Product {
 
     public void setPrices(Set<Price> prices) {
         this.prices = prices;
+    }
+
+    public Set<ProductAddress> getProductAddresses() {
+        return productAddresses;
+    }
+
+    public void setProductAddresses(Set<ProductAddress> productAddresses) {
+        this.productAddresses = productAddresses;
     }
 }

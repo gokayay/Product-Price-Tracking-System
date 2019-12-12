@@ -32,9 +32,6 @@ public class PriceServiceImpl implements PriceService {
             throw new UnsupportedOperationException("Price not found");
         Price exPrice = existedPrice.get();
 
-        exPrice.setPrice(price.getPrice());
-        exPrice.setDate(price.getDate());
-        exPrice.setUrl(price.getUrl());
         priceRepository.save(exPrice);
     }
 

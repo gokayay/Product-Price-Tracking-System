@@ -29,9 +29,6 @@ public class ProductServiceImpl implements ProductService {
             throw new UnsupportedOperationException("Product not found");
 
         Product exProduct = existedProduct.get();
-        exProduct.setProductName(product.getProductName());
-        exProduct.setProductComment(product.getProductComment());
-
         productRepository.save(exProduct);
     }
 
