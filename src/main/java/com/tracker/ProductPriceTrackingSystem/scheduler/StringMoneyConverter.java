@@ -1,4 +1,4 @@
-package com.tracker.ProductPriceTrackingSystem.crawler;
+package com.tracker.ProductPriceTrackingSystem.scheduler;
 
 import org.springframework.stereotype.Component;
 
