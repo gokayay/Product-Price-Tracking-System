@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
+import org.openqa.selenium.chrome.ChromeOptions;
 
 import java.util.Date;
 import java.util.List;
@@ -45,7 +46,10 @@ public class PriceRunner implements CommandLineRunner {
 
 
         /////////////////////////////
-        WebDriver driver = new ChromeDriver();
+        ChromeOptions chromeOptions = new ChromeOptions();
+        chromeOptions.addArguments("--headless");
+        chromeOptions.addArguments("--disable-gpu");
+        WebDriver driver = new ChromeDriver(chromeOptions);
 
 
         List<ProductAddress> productAddressList=productAddressRepository.findAll();
