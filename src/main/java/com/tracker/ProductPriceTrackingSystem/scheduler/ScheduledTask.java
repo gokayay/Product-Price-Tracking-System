@@ -19,17 +19,15 @@ import org.springframework.web.bind.annotation.RestController;
 @Component
 public class ScheduledTask {
 
-    @Autowired
-    ProductRepository productRepository;
-
     private static final Logger log = LoggerFactory.getLogger(ScheduledTask.class);
     private static final SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm:ss");
 
 
-    @Scheduled(fixedRate = 5000)
+    @Scheduled(fixedRate = 60000)   // 1 minute
     public void reportCurrentTime() {
 
         log.info("The time is now {}", dateFormat.format(new Date()));
+       // new PriceScheduler();
     }
 
 }
