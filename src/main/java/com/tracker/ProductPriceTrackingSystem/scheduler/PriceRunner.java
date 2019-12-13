@@ -1,8 +1,6 @@
 package com.tracker.ProductPriceTrackingSystem.scheduler;
 
-import com.tracker.ProductPriceTrackingSystem.crawler.StringMoneyConverter;
 import com.tracker.ProductPriceTrackingSystem.model.ProductAddress;
-import com.tracker.ProductPriceTrackingSystem.model.Site;
 import com.tracker.ProductPriceTrackingSystem.model.Price;
 import com.tracker.ProductPriceTrackingSystem.repository.ProductAddressRepository;
 import com.tracker.ProductPriceTrackingSystem.repository.SiteRepository;
@@ -12,22 +10,18 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
-import javax.persistence.EntityNotFoundException;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 @Component
-public class ProductRunner implements CommandLineRunner {
+public class PriceRunner implements CommandLineRunner {
 
-    private static final Logger logger = LoggerFactory.getLogger(ProductRunner.class);
+    PriceRunner(){}
 
     @Autowired
     private ProductRepository productRepository;
@@ -38,13 +32,14 @@ public class ProductRunner implements CommandLineRunner {
     @Autowired
     private ProductAddressRepository productAddressRepository;
 
+
     @Override
     public void run(String... args) throws Exception {
-        //Crawling();
+
     }
 
     @Scheduled(fixedRate = 60000)
-    public void Crawling(){
+    public void PriceAdder(){
 
         StringMoneyConverter Smc =new StringMoneyConverter();
 
