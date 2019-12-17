@@ -39,7 +39,7 @@ public class PriceRunner implements CommandLineRunner {
 
     }
 
-    @Scheduled(fixedRate = 60000)
+    @Scheduled(fixedRate = 300000) // 5 minutes
     public void PriceAdder(){
 
         StringMoneyConverter Smc =new StringMoneyConverter();
@@ -50,6 +50,7 @@ public class PriceRunner implements CommandLineRunner {
         chromeOptions.addArguments("--headless");
         chromeOptions.addArguments("--disable-gpu");
         WebDriver driver = new ChromeDriver(chromeOptions);
+
 
 
         List<ProductAddress> productAddressList=productAddressRepository.findAll();

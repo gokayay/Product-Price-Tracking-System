@@ -15,7 +15,7 @@ public class TimerExample {
     private static final SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm:ss");
 
 
-    @Scheduled(fixedRate = 60000)   // 1 minute
+    @Scheduled(fixedRate = 300000)   // 5 minutes
     public void reportCurrentTime() {
 
         log.info("The time is now {}", dateFormat.format(new Date()));
