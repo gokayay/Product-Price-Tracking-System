@@ -1,6 +1,7 @@
 package com.tracker.ProductPriceTrackingSystem.service.impl;
 
 import com.tracker.ProductPriceTrackingSystem.dto.SiteDto;
+import com.tracker.ProductPriceTrackingSystem.exception.ObjectNotFoundException;
 import com.tracker.ProductPriceTrackingSystem.model.Site;
 import com.tracker.ProductPriceTrackingSystem.repository.SiteRepository;
 import com.tracker.ProductPriceTrackingSystem.service.SiteService;
@@ -33,8 +34,7 @@ public class SiteServiceImpl implements SiteService {
     public void updateSite(Long id, Site site) {
         Optional<Site> existedSite = siteRepository.findById(id);
 
-        if (!existedSite.isPresent())
-            throw new UnsupportedOperationException("E-commerce site not found");
+        if (!existedSite.isPresent()) throw new ObjectNotFoundException("E-commerce site not found");
         Site exSite = existedSite.get();
 
         exSite.setSiteName(site.getSiteName());

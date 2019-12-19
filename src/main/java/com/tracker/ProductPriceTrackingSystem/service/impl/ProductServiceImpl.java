@@ -2,6 +2,7 @@ package com.tracker.ProductPriceTrackingSystem.service.impl;
 
 import com.tracker.ProductPriceTrackingSystem.dto.ProductAddressDto;
 import com.tracker.ProductPriceTrackingSystem.dto.ProductDto;
+import com.tracker.ProductPriceTrackingSystem.exception.ObjectNotFoundException;
 import com.tracker.ProductPriceTrackingSystem.model.Product;
 import com.tracker.ProductPriceTrackingSystem.model.ProductAddress;
 import com.tracker.ProductPriceTrackingSystem.repository.ProductRepository;
@@ -36,7 +37,7 @@ public class ProductServiceImpl implements ProductService {
         Optional<Product> existedProduct = productRepository.findById(id);
 
         if (!existedProduct.isPresent())
-            throw new UnsupportedOperationException("Product not found");
+            throw new ObjectNotFoundException("Product not found");
 
         Product exProduct = existedProduct.get();
         exProduct.setProductName(product.getProductName());

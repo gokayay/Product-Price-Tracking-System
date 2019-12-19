@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.tracker.ProductPriceTrackingSystem.model.Product;
 import com.tracker.ProductPriceTrackingSystem.model.Site;
+import com.tracker.ProductPriceTrackingSystem.validation.DtoValidation;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -17,6 +18,7 @@ public class PriceDto implements Serializable {
 
     private Long id;
 
+    @DtoValidation
     private Double price;
 
     private Date date;

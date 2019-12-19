@@ -1,6 +1,7 @@
 package com.tracker.ProductPriceTrackingSystem.service.impl;
 
 import com.tracker.ProductPriceTrackingSystem.dto.PriceDto;
+import com.tracker.ProductPriceTrackingSystem.exception.ObjectNotFoundException;
 import com.tracker.ProductPriceTrackingSystem.model.Price;
 import com.tracker.ProductPriceTrackingSystem.repository.PriceRepository;
 import com.tracker.ProductPriceTrackingSystem.service.PriceService;
@@ -34,7 +35,7 @@ public class PriceServiceImpl implements PriceService {
         Optional<Price> existedPrice = priceRepository.findById(id);
 
         if (!existedPrice.isPresent())
-            throw new UnsupportedOperationException("Price not found");
+            throw new ObjectNotFoundException("Price not found");
 
         Price exPrice = existedPrice.get();
 
