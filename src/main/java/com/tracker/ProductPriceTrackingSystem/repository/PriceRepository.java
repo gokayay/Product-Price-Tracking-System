@@ -1,5 +1,6 @@
 package com.tracker.ProductPriceTrackingSystem.repository;
 
+import com.tracker.ProductPriceTrackingSystem.dto.PriceDto;
 import com.tracker.ProductPriceTrackingSystem.model.Price;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;

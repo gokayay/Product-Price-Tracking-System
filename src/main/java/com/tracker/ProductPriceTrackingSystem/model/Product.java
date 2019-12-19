@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.Objects;
 import java.util.Set;
 
 @Entity
@@ -32,44 +33,28 @@ public class Product {
     @OneToMany(mappedBy = "product")
     private Set<ProductAddress> productAddresses;
 
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
+    public Product(Long id, String productName, String productComment, Set<Price> prices, Set<ProductAddress> productAddresses) {
         this.id = id;
-    }
-
-    public String getProductName() {
-        return productName;
-    }
-
-    public void setProductName(String productName) {
         this.productName = productName;
-    }
-
-    public String getProductComment() {
-        return productComment;
-    }
-
-    public void setProductComment(String productComment) {
         this.productComment = productComment;
-    }
-
-    public Set<Price> getPrices() {
-        return prices;
-    }
-
-    public void setPrices(Set<Price> prices) {
         this.prices = prices;
-    }
-
-    public Set<ProductAddress> getProductAddresses() {
-        return productAddresses;
-    }
-
-    public void setProductAddresses(Set<ProductAddress> productAddresses) {
         this.productAddresses = productAddresses;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Product product = (Product) o;
+        return Objects.equals(id, product.id) &&
+                Objects.equals(productName, product.productName) &&
+                Objects.equals(productComment, product.productComment) &&
+                Objects.equals(prices, product.prices) &&
+                Objects.equals(productAddresses, product.productAddresses);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, productName, productComment, prices, productAddresses);
     }
 }

@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.Objects;
 import java.util.Set;
 
 @Entity
@@ -30,36 +31,26 @@ public class ProductAddress {
     @JoinColumn(name = "siteId", nullable = false)
     private Site site;
 
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
+    public ProductAddress(Long id, String productPath, Product product, Site site) {
         this.id = id;
-    }
-
-    public String getProductPath() {
-        return productPath;
-    }
-
-    public void setProductPath(String productPath) {
         this.productPath = productPath;
-    }
-
-    public Product getProduct() {
-        return product;
-    }
-
-    public void setProduct(Product product) {
         this.product = product;
-    }
-
-    public Site getSite() {
-        return site;
-    }
-
-    public void setSite(Site site) {
         this.site = site;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        ProductAddress that = (ProductAddress) o;
+        return Objects.equals(id, that.id) &&
+                Objects.equals(productPath, that.productPath) &&
+                Objects.equals(product, that.product) &&
+                Objects.equals(site, that.site);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, productPath, product, site);
     }
 }
