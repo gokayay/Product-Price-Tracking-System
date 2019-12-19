@@ -5,6 +5,7 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.Objects;
 
 @Getter
 @Setter
@@ -33,44 +34,28 @@ public class Price {
     @JoinColumn(name = "siteId", nullable = false)
     private Site site;
 
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
+    public Price(Long id, Double price, Date date, Product product, Site site) {
         this.id = id;
-    }
-
-    public Double getPrice() {
-        return price;
-    }
-
-    public void setPrice(Double price) {
         this.price = price;
-    }
-
-    public Date getDate() {
-        return date;
-    }
-
-    public void setDate(Date date) {
         this.date = date;
-    }
-
-    public Product getProduct() {
-        return product;
-    }
-
-    public void setProduct(Product product) {
         this.product = product;
-    }
-
-    public Site getSite() {
-        return site;
-    }
-
-    public void setSite(Site site) {
         this.site = site;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Price price1 = (Price) o;
+        return Objects.equals(id, price1.id) &&
+                Objects.equals(price, price1.price) &&
+                Objects.equals(date, price1.date) &&
+                Objects.equals(product, price1.product) &&
+                Objects.equals(site, price1.site);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, price, date, product, site);
     }
 }

@@ -5,6 +5,7 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.util.List;
+import java.util.Objects;
 import java.util.Set;
 
 @Getter
@@ -35,51 +36,30 @@ public class Site {
     @OneToMany(mappedBy = "site")
     private Set<ProductAddress> productAddresses;
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
+    public Site(Long id, String siteName, String siteUrl, String siteXpath, Set<Price> prices, Set<ProductAddress> productAddresses) {
         this.id = id;
-    }
-
-    public String getSiteName() {
-        return siteName;
-    }
-
-    public void setSiteName(String siteName) {
         this.siteName = siteName;
-    }
-
-    public String getSiteUrl() {
-        return siteUrl;
-    }
-
-    public void setSiteUrl(String siteUrl) {
         this.siteUrl = siteUrl;
-    }
-
-    public String getSiteXpath() {
-        return siteXpath;
-    }
-
-    public void setSiteXpath(String siteXpath) {
         this.siteXpath = siteXpath;
-    }
-
-    public Set<Price> getPrices() {
-        return prices;
-    }
-
-    public void setPrices(Set<Price> prices) {
         this.prices = prices;
-    }
-
-    public Set<ProductAddress> getProductAddresses() {
-        return productAddresses;
-    }
-
-    public void setProductAddresses(Set<ProductAddress> productAddresses) {
         this.productAddresses = productAddresses;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Site site = (Site) o;
+        return Objects.equals(id, site.id) &&
+                Objects.equals(siteName, site.siteName) &&
+                Objects.equals(siteUrl, site.siteUrl) &&
+                Objects.equals(siteXpath, site.siteXpath) &&
+                Objects.equals(prices, site.prices) &&
+                Objects.equals(productAddresses, site.productAddresses);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, siteName, siteUrl, siteXpath, prices, productAddresses);
     }
 }
