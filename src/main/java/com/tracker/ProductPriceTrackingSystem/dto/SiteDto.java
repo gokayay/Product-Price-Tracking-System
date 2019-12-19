@@ -18,6 +18,7 @@ public class SiteDto implements Serializable {
 
     private String siteName;
 
+    //isValidURl
     private String siteUrl;
 
     private String siteXpath;
