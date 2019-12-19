@@ -1,7 +1,7 @@
 package com.tracker.ProductPriceTrackingSystem.dto;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.tracker.ProductPriceTrackingSystem.model.Price;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.tracker.ProductPriceTrackingSystem.model.Product;
 import com.tracker.ProductPriceTrackingSystem.model.Site;
 import lombok.Getter;
@@ -9,7 +9,6 @@ import lombok.Setter;
 
 import java.io.Serializable;
 import java.util.Date;
-import java.util.List;
 import java.util.Objects;
 
 @Getter
@@ -22,22 +21,12 @@ public class PriceDto implements Serializable {
 
     private Date date;
 
-    @JsonIgnore
+    @JsonIgnoreProperties({"productComment","prices","productAddresses"})
     private Product product;
 
-    @JsonIgnore
+    @JsonIgnoreProperties({"siteUrl","siteXpath","prices","productAddresses"})
     private Site site;
 
-    public PriceDto(Long id, Double price, Date date, Product product, Site site) {
-        this.id = id;
-        this.price = price;
-        this.date = date;
-        this.product = product;
-        this.site = site;
-    }
-
-    public PriceDto() {
-    }
 
     @Override
     public boolean equals(Object o) {

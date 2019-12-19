@@ -1,11 +1,16 @@
 package com.tracker.ProductPriceTrackingSystem.controller;
 
+import com.tracker.ProductPriceTrackingSystem.dto.ProductAddressDto;
 import com.tracker.ProductPriceTrackingSystem.model.Product;
 import com.tracker.ProductPriceTrackingSystem.model.ProductAddress;
 import com.tracker.ProductPriceTrackingSystem.service.ProductAddressService;
 import com.tracker.ProductPriceTrackingSystem.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/productaddress")
@@ -15,30 +20,30 @@ public class ProductAddressController {
     ProductAddressService productAddressService;
 
     @GetMapping(value = "")
-    public Object getProductAddress() {
-        return productAddressService.allProductAddresses();
+    public ResponseEntity<List<ProductAddressDto>> getProductAddress() {
+        return new ResponseEntity<>(productAddressService.allProductAddressesDto(), HttpStatus.OK);
     }
 
     @GetMapping ("/{id}")
-    public Object getOneProductAddress(@PathVariable Long id){
-        return productAddressService.oneProductAddress(id);
+    public ResponseEntity<ProductAddressDto> getOneProductAddress(@PathVariable Long id){
+        return new ResponseEntity<>(productAddressService.oneProductAddressDto(id), HttpStatus.OK);
     }
 
     @PostMapping(value = "")
-    public String create(@RequestBody ProductAddress productAddress) {
+    public ResponseEntity<String> create(@RequestBody ProductAddress productAddress) {
         productAddressService.createProductAddress(productAddress);
-        return "created";
+        return new ResponseEntity<>("created", HttpStatus.OK);
     }
 
     @DeleteMapping("/{id}")
-    public String delete(@PathVariable  Long id) {
+    public ResponseEntity<String> delete(@PathVariable  Long id) {
         productAddressService.deleteProductAddress(id);
-        return "deleted";
+        return new ResponseEntity<>("deleted", HttpStatus.OK);
     }
 
     @PutMapping("/{id}")
-    public String update(@PathVariable  Long id,@RequestBody  ProductAddress productAddress){
+    public ResponseEntity<String> update(@PathVariable  Long id,@RequestBody  ProductAddress productAddress){
         productAddressService.updateProductAddress(id,productAddress);
-        return "updated";
+        return new ResponseEntity<>("updated", HttpStatus.OK);
     }
 }

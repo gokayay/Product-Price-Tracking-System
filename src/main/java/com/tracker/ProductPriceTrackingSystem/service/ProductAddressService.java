@@ -1,5 +1,6 @@
 package com.tracker.ProductPriceTrackingSystem.service;
 
+import com.tracker.ProductPriceTrackingSystem.dto.ProductAddressDto;
 import com.tracker.ProductPriceTrackingSystem.model.ProductAddress;
 
 import java.util.List;
@@ -16,4 +17,8 @@ public interface ProductAddressService {
     List<ProductAddress> allProductAddresses();
 
     Optional<ProductAddress> oneProductAddress(Long id);
+
+    List<ProductAddressDto> allProductAddressesDto();
+
+    ProductAddressDto oneProductAddressDto(Long id);
 }

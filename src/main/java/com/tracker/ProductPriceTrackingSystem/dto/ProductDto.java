@@ -1,12 +1,19 @@
 package com.tracker.ProductPriceTrackingSystem.dto;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.tracker.ProductPriceTrackingSystem.model.Price;
 import com.tracker.ProductPriceTrackingSystem.model.ProductAddress;
+import lombok.Getter;
+import lombok.Setter;
 
+import java.io.Serializable;
+import java.util.Objects;
 import java.util.Set;
 
-public class ProductDto{
+@Getter
+@Setter
+public class ProductDto implements Serializable {
 
     private Long id;
 
@@ -14,51 +21,19 @@ public class ProductDto{
 
     private String productComment;
 
-    private Set<Price> prices;
 
-    private Set<ProductAddress> productAddresses;
-
-
-    ////////////////////////
-
-
-    public Long getId() {
-        return id;
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        ProductDto that = (ProductDto) o;
+        return Objects.equals(id, that.id) &&
+                Objects.equals(productName, that.productName) &&
+                Objects.equals(productComment, that.productComment);
     }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getProductName() {
-        return productName;
-    }
-
-    public void setProductName(String productName) {
-        this.productName = productName;
-    }
-
-    public String getProductComment() {
-        return productComment;
-    }
-
-    public void setProductComment(String productComment) {
-        this.productComment = productComment;
-    }
-
-    public Set<Price> getPrices() {
-        return prices;
-    }
-
-    public void setPrices(Set<Price> prices) {
-        this.prices = prices;
-    }
-
-    public Set<ProductAddress> getProductAddresses() {
-        return productAddresses;
-    }
-
-    public void setProductAddresses(Set<ProductAddress> productAddresses) {
-        this.productAddresses = productAddresses;
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, productName, productComment);
     }
 }
