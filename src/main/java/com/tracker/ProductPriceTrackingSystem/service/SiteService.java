@@ -1,5 +1,6 @@
 package com.tracker.ProductPriceTrackingSystem.service;
 
+import com.tracker.ProductPriceTrackingSystem.dto.SiteDto;
 import com.tracker.ProductPriceTrackingSystem.model.Site;
 
 import java.util.List;
@@ -16,4 +17,8 @@ public interface SiteService {
     List<Site> allSites();
 
     Optional<Site> oneSite(Long id);
+
+    List<SiteDto> allSitesDto();
+
+    SiteDto oneSiteDto(Long id);
 }

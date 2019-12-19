@@ -2,18 +2,13 @@ package com.tracker.ProductPriceTrackingSystem.controller;
 
 import com.tracker.ProductPriceTrackingSystem.dto.PriceDto;
 import com.tracker.ProductPriceTrackingSystem.model.Price;
-import com.tracker.ProductPriceTrackingSystem.model.Product;
 import com.tracker.ProductPriceTrackingSystem.service.PriceService;
-import com.tracker.ProductPriceTrackingSystem.service.ProductService;
-import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.text.ParseException;
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/price")
@@ -34,7 +29,7 @@ public class PriceController {
     }
 
     @PostMapping(value = "")
-    public ResponseEntity<String> createPrices(@RequestBody Price price) {
+    public ResponseEntity<String> create(@RequestBody Price price) {
         priceService.createPrice(price);
         return new ResponseEntity<>("created", HttpStatus.OK);
     }

@@ -1,12 +1,18 @@
 package com.tracker.ProductPriceTrackingSystem.dto;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.tracker.ProductPriceTrackingSystem.model.Price;
 import com.tracker.ProductPriceTrackingSystem.model.ProductAddress;
+import lombok.Getter;
+import lombok.Setter;
 
-import javax.persistence.*;
+import java.io.Serializable;
+import java.util.Objects;
 import java.util.Set;
 
-public class SiteDto {
+@Getter
+@Setter
+public class SiteDto implements Serializable {
 
     private Long id;
 
@@ -16,60 +22,20 @@ public class SiteDto {
 
     private String siteXpath;
 
-    private Set<Price> prices;
 
-    private Set<ProductAddress> productAddresses;
-
-
-
-    /////////////////
-
-
-    public Long getId() {
-        return id;
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        SiteDto siteDto = (SiteDto) o;
+        return Objects.equals(id, siteDto.id) &&
+                Objects.equals(siteName, siteDto.siteName) &&
+                Objects.equals(siteUrl, siteDto.siteUrl) &&
+                Objects.equals(siteXpath, siteDto.siteXpath);
     }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getSiteName() {
-        return siteName;
-    }
-
-    public void setSiteName(String siteName) {
-        this.siteName = siteName;
-    }
-
-    public String getSiteUrl() {
-        return siteUrl;
-    }
-
-    public void setSiteUrl(String siteUrl) {
-        this.siteUrl = siteUrl;
-    }
-
-    public String getSiteXpath() {
-        return siteXpath;
-    }
-
-    public void setSiteXpath(String siteXpath) {
-        this.siteXpath = siteXpath;
-    }
-
-    public Set<Price> getPrices() {
-        return prices;
-    }
-
-    public void setPrices(Set<Price> prices) {
-        this.prices = prices;
-    }
-
-    public Set<ProductAddress> getProductAddresses() {
-        return productAddresses;
-    }
-
-    public void setProductAddresses(Set<ProductAddress> productAddresses) {
-        this.productAddresses = productAddresses;
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, siteName, siteUrl, siteXpath);
     }
 }

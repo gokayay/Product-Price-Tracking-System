@@ -1,53 +1,44 @@
 package com.tracker.ProductPriceTrackingSystem.dto;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.tracker.ProductPriceTrackingSystem.model.Product;
 import com.tracker.ProductPriceTrackingSystem.model.Site;
+import lombok.Getter;
+import lombok.Setter;
 
-public class ProductAddressDto {
+import java.io.Serializable;
+import java.util.Objects;
+
+@Getter
+@Setter
+public class ProductAddressDto implements Serializable {
 
     private Long id;
 
     private String productPath;
 
+    @JsonIgnoreProperties({"productComment","prices","productAddresses"})
     private Product product;
 
+    @JsonIgnoreProperties({"siteUrl","siteXpath","prices","productAddresses"})
     private Site site;
 
 
 
-
-    ///////////////////////
-
-
-    public Long getId() {
-        return id;
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        ProductAddressDto that = (ProductAddressDto) o;
+        return Objects.equals(id, that.id) &&
+                Objects.equals(productPath, that.productPath) &&
+                Objects.equals(product, that.product) &&
+                Objects.equals(site, that.site);
     }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getProductPath() {
-        return productPath;
-    }
-
-    public void setProductPath(String productPath) {
-        this.productPath = productPath;
-    }
-
-    public Product getProduct() {
-        return product;
-    }
-
-    public void setProduct(Product product) {
-        this.product = product;
-    }
-
-    public Site getSite() {
-        return site;
-    }
-
-    public void setSite(Site site) {
-        this.site = site;
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, productPath, product, site);
     }
 }
