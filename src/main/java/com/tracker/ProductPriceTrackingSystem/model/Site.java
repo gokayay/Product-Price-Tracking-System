@@ -30,17 +30,21 @@ public class Site {
     @Column
     private String siteXpath;
 
+    @Column
+    private String siteImg;
+
     @OneToMany(mappedBy = "site")
     private Set<Price> prices;
 
     @OneToMany(mappedBy = "site")
     private Set<ProductAddress> productAddresses;
 
-    public Site(Long id, String siteName, String siteUrl, String siteXpath, Set<Price> prices, Set<ProductAddress> productAddresses) {
+    public Site(Long id, String siteName, String siteUrl, String siteXpath, String siteImg, Set<Price> prices, Set<ProductAddress> productAddresses) {
         this.id = id;
         this.siteName = siteName;
         this.siteUrl = siteUrl;
         this.siteXpath = siteXpath;
+        this.siteImg = siteImg;
         this.prices = prices;
         this.productAddresses = productAddresses;
     }
@@ -54,12 +58,13 @@ public class Site {
                 Objects.equals(siteName, site.siteName) &&
                 Objects.equals(siteUrl, site.siteUrl) &&
                 Objects.equals(siteXpath, site.siteXpath) &&
+                Objects.equals(siteImg, site.siteImg) &&
                 Objects.equals(prices, site.prices) &&
                 Objects.equals(productAddresses, site.productAddresses);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, siteName, siteUrl, siteXpath, prices, productAddresses);
+        return Objects.hash(id, siteName, siteUrl, siteXpath, siteImg, prices, productAddresses);
     }
 }

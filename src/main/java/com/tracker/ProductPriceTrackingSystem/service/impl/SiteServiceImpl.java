@@ -40,6 +40,7 @@ public class SiteServiceImpl implements SiteService {
         exSite.setSiteName(site.getSiteName());
         exSite.setSiteUrl(site.getSiteUrl());
         exSite.setSiteXpath(site.getSiteXpath());
+        exSite.setSiteImg(site.getSiteImg());
 
         siteRepository.save(exSite);
     }
