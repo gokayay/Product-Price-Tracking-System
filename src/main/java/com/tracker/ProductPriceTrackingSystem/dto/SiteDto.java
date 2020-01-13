@@ -23,6 +23,7 @@ public class SiteDto implements Serializable {
 
     private String siteXpath;
 
+    private String siteImg;
 
     @Override
     public boolean equals(Object o) {
@@ -32,11 +33,12 @@ public class SiteDto implements Serializable {
         return Objects.equals(id, siteDto.id) &&
                 Objects.equals(siteName, siteDto.siteName) &&
                 Objects.equals(siteUrl, siteDto.siteUrl) &&
-                Objects.equals(siteXpath, siteDto.siteXpath);
+                Objects.equals(siteXpath, siteDto.siteXpath) &&
+                Objects.equals(siteImg, siteDto.siteImg);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, siteName, siteUrl, siteXpath);
+        return Objects.hash(id, siteName, siteUrl, siteXpath, siteImg);
     }
 }

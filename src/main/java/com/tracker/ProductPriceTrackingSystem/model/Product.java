@@ -27,16 +27,20 @@ public class Product {
     @Column
     private String productComment;
 
+    @Column
+    private String productImg;
+
     @OneToMany(mappedBy = "product")
     private Set<Price> prices;
 
     @OneToMany(mappedBy = "product")
     private Set<ProductAddress> productAddresses;
 
-    public Product(Long id, String productName, String productComment, Set<Price> prices, Set<ProductAddress> productAddresses) {
+    public Product(Long id, String productName, String productComment, String productImg, Set<Price> prices, Set<ProductAddress> productAddresses) {
         this.id = id;
         this.productName = productName;
         this.productComment = productComment;
+        this.productImg = productImg;
         this.prices = prices;
         this.productAddresses = productAddresses;
     }
@@ -49,12 +53,13 @@ public class Product {
         return Objects.equals(id, product.id) &&
                 Objects.equals(productName, product.productName) &&
                 Objects.equals(productComment, product.productComment) &&
+                Objects.equals(productImg, product.productImg) &&
                 Objects.equals(prices, product.prices) &&
                 Objects.equals(productAddresses, product.productAddresses);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, productName, productComment, prices, productAddresses);
+        return Objects.hash(id, productName, productComment, productImg, prices, productAddresses);
     }
 }

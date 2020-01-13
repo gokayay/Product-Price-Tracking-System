@@ -21,6 +21,8 @@ public class ProductDto implements Serializable {
 
     private String productComment;
 
+    private String productImg;
+
 
     @Override
     public boolean equals(Object o) {
@@ -29,11 +31,12 @@ public class ProductDto implements Serializable {
         ProductDto that = (ProductDto) o;
         return Objects.equals(id, that.id) &&
                 Objects.equals(productName, that.productName) &&
-                Objects.equals(productComment, that.productComment);
+                Objects.equals(productComment, that.productComment) &&
+                Objects.equals(productImg, that.productImg);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, productName, productComment);
+        return Objects.hash(id, productName, productComment, productImg);
     }
 }

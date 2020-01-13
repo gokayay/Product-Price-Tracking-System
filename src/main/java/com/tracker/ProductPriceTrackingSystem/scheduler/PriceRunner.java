@@ -39,7 +39,7 @@ public class PriceRunner implements CommandLineRunner {
 
     }
 
-    @Scheduled(fixedRate = 2000000) // aprx. 30 minutes
+    @Scheduled(fixedRate = 18000000) // 5 hours
     public void PriceAdder(){
 
         StringMoneyConverter Smc =new StringMoneyConverter();

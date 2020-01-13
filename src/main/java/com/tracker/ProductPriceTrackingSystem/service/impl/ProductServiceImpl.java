@@ -42,6 +42,7 @@ public class ProductServiceImpl implements ProductService {
         Product exProduct = existedProduct.get();
         exProduct.setProductName(product.getProductName());
         exProduct.setProductComment(product.getProductComment());
+        exProduct.setProductImg(product.getProductImg());
 
         productRepository.save(exProduct);
     }
