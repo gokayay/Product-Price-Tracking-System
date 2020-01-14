@@ -43,8 +43,8 @@ public class ProductAddressServiceImpl implements ProductAddressService {
 
         ProductAddress exProductAddress = existedProductAddress.get();
         exProductAddress.setProductPath(productAddress.getProductPath());
-        exProductAddress.setProduct(productAddress.getProduct());
-        exProductAddress.setSite(productAddress.getSite());
+        //exProductAddress.setProduct(productAddress.getProduct());
+        //exProductAddress.setSite(productAddress.getSite());
 
         productAddressRepository.save(exProductAddress);
     }
