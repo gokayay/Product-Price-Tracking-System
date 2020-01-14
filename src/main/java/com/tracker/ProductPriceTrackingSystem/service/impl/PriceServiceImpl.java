@@ -39,7 +39,7 @@ public class PriceServiceImpl implements PriceService {
 
         Price exPrice = existedPrice.get();
 
-        exPrice.setProduct(price.getProduct());
+        //exPrice.setProduct(price.getProduct());
         exPrice.setSite(price.getSite());
         exPrice.setDate(price.getDate());
         exPrice.setPrice(price.getPrice());

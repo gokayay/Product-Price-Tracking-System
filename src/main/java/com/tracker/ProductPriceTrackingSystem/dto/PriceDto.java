@@ -25,10 +25,10 @@ public class PriceDto implements Serializable {
     @CheckDateCustom(pattern = "YYYY-MM-DD hh:mm:ss[.fraction]")
     private Date date;
 
-    @JsonIgnoreProperties({"productComment","prices","productAddresses"})
+    @JsonIgnoreProperties({"productComment","prices","productAddresses","productImg"})
     private Product product;
 
-    @JsonIgnoreProperties({"siteUrl","siteXpath","prices","productAddresses"})
+    @JsonIgnoreProperties({"siteUrl","siteXpath","prices","productAddresses","siteImg"})
     private Site site;
 
 

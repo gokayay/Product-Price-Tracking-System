@@ -18,10 +18,10 @@ public class ProductAddressDto implements Serializable {
 
     private String productPath;
 
-    @JsonIgnoreProperties({"productComment","prices","productAddresses"})
+    @JsonIgnoreProperties({"productComment","prices","productAddresses","productImg"})
     private Product product;
 
-    @JsonIgnoreProperties({"siteUrl","siteXpath","prices","productAddresses"})
+    @JsonIgnoreProperties({"siteUrl","siteXpath","prices","productAddresses","siteImg"})
     private Site site;
 
 
