@@ -10,6 +10,9 @@ import com.tracker.ProductPriceTrackingSystem.service.ProductService;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.lang.reflect.Type;
@@ -87,10 +90,34 @@ public class ProductServiceImpl implements ProductService {
         List<ProductDto> returnValue = new ModelMapper().map(product, listType);
         return returnValue;
     }
+    public Page<ProductDto> convertToDtoPage(Page<Product> product) {
+        // Create Conversion Type
+        Type listType = new TypeToken<Page<ProductDto>>() {}.getType();
+        // Convert List of Entity objects to a List of DTOs objects
+        Page<ProductDto> returnValue = new ModelMapper().map(product, listType);
+        return returnValue;
+    }
 
 
     private Product convertToEntity(ProductDto productDto) throws ParseException {
 
         return modelMapper.map(productDto, Product.class);
+    }
+
+
+    /////////
+/*
+    public Page<Product> getPaginatedProducts(int pageNumber) {
+        PageRequest pageable = PageRequest.of(pageNumber - 1, 6);
+        Page<Product> resultPage = productRepository.findAll(pageable);
+        if (pageNumber > resultPage.getTotalPages()) {
+            throw new ObjectNotFoundException("Not Found Page Number:" + pageNumber);
+        }
+        return resultPage;
+    }
+*/
+    public Page<ProductDto> getPaginatedProductsDto(Pageable pageable) {
+        Page<ProductDto> resultPage = convertToDtoPage(productRepository.findAll(pageable));
+        return resultPage;
     }
 }

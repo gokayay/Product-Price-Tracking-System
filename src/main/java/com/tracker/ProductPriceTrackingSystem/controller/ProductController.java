@@ -4,6 +4,8 @@ import com.tracker.ProductPriceTrackingSystem.dto.ProductDto;
 import com.tracker.ProductPriceTrackingSystem.model.Product;
 import com.tracker.ProductPriceTrackingSystem.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -17,11 +19,20 @@ public class ProductController {
 
     @Autowired
     ProductService productService;
-
+/*
     @GetMapping(value = "")
     public ResponseEntity<List<ProductDto>> getProducts() {
         return new ResponseEntity<>(productService.allProductsDto(), HttpStatus.OK);
     }
+*/
+
+    @GetMapping("")
+    @ResponseBody
+    public ResponseEntity<List<ProductDto>> findAllPaginatedDto(Pageable pageable) {
+        Page<ProductDto> resultPage = productService.getPaginatedProductsDto(pageable);
+        return new ResponseEntity<>(resultPage.getContent(), HttpStatus.OK);
+    }
+
 
     @GetMapping ("/{id}")
     public ResponseEntity<ProductDto> getOneProduct(@PathVariable Long id){
