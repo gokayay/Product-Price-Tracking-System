@@ -1,6 +1,7 @@
 package com.tracker.ProductPriceTrackingSystem.model;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -30,9 +31,11 @@ public class Product {
     @Column
     private String productImg;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "product")
     private Set<Price> prices;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "product")
     private Set<ProductAddress> productAddresses;
 
