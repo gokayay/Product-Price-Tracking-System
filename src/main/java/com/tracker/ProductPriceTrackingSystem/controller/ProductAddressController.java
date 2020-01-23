@@ -29,10 +29,7 @@ public class ProductAddressController {
     }*/
     @GetMapping("")
     @ResponseBody
-    public ResponseEntity<List<ProductAddressDto>> findAllPaginatedDto(Pageable pageable ,
-                                                             @RequestParam(defaultValue = "0", name = "page") String page,
-                                                             @RequestParam(defaultValue = "3", name = "size") String size,
-                                                             @RequestParam(defaultValue = "id,ASC", name = "sort") String sort) {
+    public ResponseEntity<List<ProductAddressDto>> findAllPaginatedDto(Pageable pageable) {
         Page<ProductAddressDto> resultPage = productAddressService.getPaginatedProductAddressesDto(pageable);
         return new ResponseEntity<>(resultPage.getContent(), HttpStatus.OK);
     }

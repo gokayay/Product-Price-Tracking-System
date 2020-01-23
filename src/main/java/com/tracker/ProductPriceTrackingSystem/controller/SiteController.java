@@ -29,10 +29,7 @@ public class SiteController {
 
     @GetMapping("")
     @ResponseBody
-    public ResponseEntity<List<SiteDto>> findAllPaginatedDto(Pageable pageable ,
-                                                                @RequestParam(defaultValue = "0", name = "page") String page,
-                                                                @RequestParam(defaultValue = "3", name = "size") String size,
-                                                                @RequestParam(defaultValue = "id,ASC", name = "sort") String sort) {
+    public ResponseEntity<List<SiteDto>> findAllPaginatedDto(Pageable pageable) {
         Page<SiteDto> resultPage = siteService.getPaginatedSitesDto(pageable);
         return new ResponseEntity<>(resultPage.getContent(), HttpStatus.OK);
     }

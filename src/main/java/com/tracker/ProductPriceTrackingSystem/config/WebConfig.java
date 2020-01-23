@@ -13,13 +13,11 @@ import java.util.List;
 @Configuration
 public class WebConfig implements WebMvcConfigurer {
 
-
-
     @Override
     public void addArgumentResolvers(List<HandlerMethodArgumentResolver> argumentResolvers) {
         PageableHandlerMethodArgumentResolver resolver = new PageableHandlerMethodArgumentResolver();
         resolver.setOneIndexedParameters(true);
-        resolver.setFallbackPageable(PageRequest.of(1, 3, Sort.by(Sort.Direction.ASC,"id")));
+        resolver.setFallbackPageable(PageRequest.of(1, 10, Sort.by(Sort.Direction.ASC,"id")));
         argumentResolvers.add(resolver);
         WebMvcConfigurer.super.addArgumentResolvers(argumentResolvers);
     }

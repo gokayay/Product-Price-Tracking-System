@@ -28,10 +28,7 @@ public class ProductController {
 
     @GetMapping("")
     @ResponseBody
-    public ResponseEntity<List<ProductDto>> findAllPaginatedDto(Pageable pageable ,
-                                                                @RequestParam(defaultValue = "0", name = "page") String page,
-                                                                @RequestParam(defaultValue = "3", name = "size") String size,
-                                                                @RequestParam(defaultValue = "id,ASC", name = "sort") String sort) {
+    public ResponseEntity<List<ProductDto>> findAllPaginatedDto(Pageable pageable) {
         Page<ProductDto> resultPage = productService.getPaginatedProductsDto(pageable);
         return new ResponseEntity<>(resultPage.getContent(), HttpStatus.OK);
     }
