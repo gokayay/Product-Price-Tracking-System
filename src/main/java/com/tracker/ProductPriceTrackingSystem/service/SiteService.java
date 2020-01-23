@@ -2,6 +2,8 @@ package com.tracker.ProductPriceTrackingSystem.service;
 
 import com.tracker.ProductPriceTrackingSystem.dto.SiteDto;
 import com.tracker.ProductPriceTrackingSystem.model.Site;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 import java.util.List;
 import java.util.Optional;
@@ -21,4 +23,8 @@ public interface SiteService {
     List<SiteDto> allSitesDto();
 
     SiteDto oneSiteDto(Long id);
+
+    Page<SiteDto> convertToDtoPage(Page<Site> site);
+
+    Page<SiteDto> getPaginatedSitesDto(Pageable pageable);
 }

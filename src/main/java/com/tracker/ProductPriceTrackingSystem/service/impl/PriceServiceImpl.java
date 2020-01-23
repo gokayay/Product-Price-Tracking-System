@@ -1,6 +1,7 @@
 package com.tracker.ProductPriceTrackingSystem.service.impl;
 
 import com.tracker.ProductPriceTrackingSystem.dto.PriceDto;
+import com.tracker.ProductPriceTrackingSystem.dto.SiteDto;
 import com.tracker.ProductPriceTrackingSystem.exception.ObjectNotFoundException;
 import com.tracker.ProductPriceTrackingSystem.model.Price;
 import com.tracker.ProductPriceTrackingSystem.repository.PriceRepository;
@@ -8,6 +9,8 @@ import com.tracker.ProductPriceTrackingSystem.service.PriceService;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.lang.reflect.Type;
@@ -74,7 +77,6 @@ public class PriceServiceImpl implements PriceService {
         return convertToDto(priceRepository.findById(id));
     }
 
-
     //////////
 
     private PriceDto convertToDto(Optional<Price> price) {
@@ -93,5 +95,21 @@ public class PriceServiceImpl implements PriceService {
     private Price convertToEntity(PriceDto priceDto) throws ParseException {
 
         return modelMapper.map(priceDto, Price.class);
+    }
+
+
+    @Override
+    public Page<PriceDto> convertToDtoPage(Page<Price> price) {
+        // Create Conversion Type
+        Type listType = new TypeToken<Page<PriceDto>>() {}.getType();
+        // Convert List of Entity objects to a List of DTOs objects
+        Page<PriceDto> returnValue = new ModelMapper().map(price, listType);
+        return returnValue;
+    }
+
+    @Override
+    public Page<PriceDto> getPaginatedPricesDto(Pageable pageable) {
+        Page<PriceDto> resultPage = convertToDtoPage(priceRepository.findAll(pageable));
+        return resultPage;
     }
 }

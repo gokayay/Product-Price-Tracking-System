@@ -1,16 +1,15 @@
 package com.tracker.ProductPriceTrackingSystem.service.impl;
 
-
-import com.tracker.ProductPriceTrackingSystem.dto.PriceDto;
 import com.tracker.ProductPriceTrackingSystem.dto.ProductAddressDto;
 import com.tracker.ProductPriceTrackingSystem.exception.ObjectNotFoundException;
-import com.tracker.ProductPriceTrackingSystem.model.Price;
 import com.tracker.ProductPriceTrackingSystem.model.ProductAddress;
 import com.tracker.ProductPriceTrackingSystem.repository.ProductAddressRepository;
 import com.tracker.ProductPriceTrackingSystem.service.ProductAddressService;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.lang.reflect.Type;
@@ -77,7 +76,6 @@ public class ProductAddressServiceImpl implements ProductAddressService {
         return convertToDto(productAddressRepository.findById(id));
     }
 
-
     //////////
 
     private ProductAddressDto convertToDto(Optional<ProductAddress> productAddress) {
@@ -96,5 +94,20 @@ public class ProductAddressServiceImpl implements ProductAddressService {
     private ProductAddress convertToEntity(ProductAddressDto productAddressDto) throws ParseException {
 
         return modelMapper.map(productAddressDto, ProductAddress.class);
+    }
+
+
+    @Override
+    public Page<ProductAddressDto> convertToDtoPage(Page<ProductAddress> productAddress) {
+        Type listType = new TypeToken<Page<ProductAddressDto>>() {}.getType();
+        // Convert List of Entity objects to a List of DTOs objects
+        Page<ProductAddressDto> returnValue = new ModelMapper().map(productAddress, listType);
+        return returnValue;
+    }
+
+    @Override
+    public Page<ProductAddressDto> getPaginatedProductAddressesDto(Pageable pageable) {
+        Page<ProductAddressDto> resultPage = convertToDtoPage(productAddressRepository.findAll(pageable));
+        return resultPage;
     }
 }

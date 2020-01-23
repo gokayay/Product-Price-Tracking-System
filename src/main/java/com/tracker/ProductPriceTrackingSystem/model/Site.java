@@ -1,5 +1,6 @@
 package com.tracker.ProductPriceTrackingSystem.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -33,9 +34,11 @@ public class Site {
     @Column
     private String siteImg;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "site")
     private Set<Price> prices;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "site")
     private Set<ProductAddress> productAddresses;
 

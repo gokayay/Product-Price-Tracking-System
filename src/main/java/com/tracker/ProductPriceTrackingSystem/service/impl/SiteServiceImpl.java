@@ -8,6 +8,8 @@ import com.tracker.ProductPriceTrackingSystem.service.SiteService;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.lang.reflect.Type;
@@ -72,6 +74,7 @@ public class SiteServiceImpl implements SiteService {
         return convertToDto(siteRepository.findById(id));
     }
 
+
 //////////
 
     private SiteDto convertToDto(Optional<Site> site) {
@@ -86,9 +89,25 @@ public class SiteServiceImpl implements SiteService {
         return returnValue;
     }
 
-
     private Site convertToEntity(SiteDto siteDto) throws ParseException {
-
         return modelMapper.map(siteDto, Site.class);
     }
+
+
+    @Override
+    public Page<SiteDto> convertToDtoPage(Page<Site> site) {
+        // Create Conversion Type
+        Type listType = new TypeToken<Page<SiteDto>>() {}.getType();
+        // Convert List of Entity objects to a List of DTOs objects
+        Page<SiteDto> returnValue = new ModelMapper().map(site, listType);
+        return returnValue;
+    }
+
+    @Override
+    public Page<SiteDto> getPaginatedSitesDto(Pageable pageable) {
+        Page<SiteDto> resultPage = convertToDtoPage(siteRepository.findAll(pageable));
+        return resultPage;
+    }
+
+
 }
