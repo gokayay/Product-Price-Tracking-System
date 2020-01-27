@@ -28,4 +28,6 @@ public interface ProductService {
     Page<ProductDto> convertToDtoPage(Page<Product> product);
 
     Page<ProductDto> getPaginatedProductsDto(Pageable pageable);
+
+    Page<ProductDto> getPaginatedProductNameDto(String product_name,Pageable pageable);
 }

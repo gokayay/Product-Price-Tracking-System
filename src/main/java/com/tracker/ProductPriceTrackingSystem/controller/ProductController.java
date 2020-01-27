@@ -6,6 +6,7 @@ import com.tracker.ProductPriceTrackingSystem.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -30,7 +31,26 @@ public class ProductController {
     @ResponseBody
     public ResponseEntity<List<ProductDto>> findAllPaginatedDto(Pageable pageable) {
         Page<ProductDto> resultPage = productService.getPaginatedProductsDto(pageable);
-        return new ResponseEntity<>(resultPage.getContent(), HttpStatus.OK);
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("Content-Type", "application/json; charset=UTF-8");
+        headers.add("Total Page", String.valueOf(resultPage.getTotalPages()));
+        headers.add("Total Size", String.valueOf(resultPage.getTotalElements()));
+
+        return new ResponseEntity<>(resultPage.getContent(),headers, HttpStatus.OK);
+    }
+
+    @GetMapping("/productname")
+    @ResponseBody
+    public ResponseEntity<List<ProductDto>> findAllPaginatedDtoByName(Pageable pageable, @RequestParam String product_name) {
+        Page<ProductDto> resultPage = productService.getPaginatedProductNameDto(product_name,pageable);
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("Content-Type", "application/json; charset=UTF-8");
+        headers.add("Total Page", String.valueOf(resultPage.getTotalPages()));
+        headers.add("Total Size", String.valueOf(resultPage.getTotalElements()));
+
+        return new ResponseEntity<>(resultPage.getContent(),headers, HttpStatus.OK);
     }
 
 

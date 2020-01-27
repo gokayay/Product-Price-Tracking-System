@@ -120,4 +120,9 @@ public class ProductServiceImpl implements ProductService {
         Page<ProductDto> resultPage = convertToDtoPage(productRepository.findAll(pageable));
         return resultPage;
     }
+
+    public Page<ProductDto> getPaginatedProductNameDto(String product_name,Pageable pageable) {
+        Page<ProductDto> resultPage = convertToDtoPage(productRepository.findAllByNameContaining(product_name,pageable));
+        return resultPage;
+    }
 }
