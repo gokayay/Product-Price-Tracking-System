@@ -29,15 +29,10 @@ public class ProductController {
 
     @GetMapping("")
     @ResponseBody
-    public ResponseEntity<List<ProductDto>> findAllPaginatedDto(Pageable pageable) {
+    public ResponseEntity<Page> findAllPaginatedDto(Pageable pageable) {
         Page<ProductDto> resultPage = productService.getPaginatedProductsDto(pageable);
 
-        HttpHeaders headers = new HttpHeaders();
-        headers.add("Content-Type", "application/json; charset=UTF-8");
-        headers.add("Total Page", String.valueOf(resultPage.getTotalPages()));
-        headers.add("Total Size", String.valueOf(resultPage.getTotalElements()));
-
-        return new ResponseEntity<>(resultPage.getContent(),headers, HttpStatus.OK);
+        return new ResponseEntity<>(resultPage, HttpStatus.OK);
     }
 
     @GetMapping("/productname")
