@@ -1,17 +1,14 @@
 package com.tracker.ProductPriceTrackingSystem.service.impl;
 
-import com.tracker.ProductPriceTrackingSystem.dto.ProductAddressDto;
 import com.tracker.ProductPriceTrackingSystem.dto.ProductDto;
 import com.tracker.ProductPriceTrackingSystem.exception.ObjectNotFoundException;
 import com.tracker.ProductPriceTrackingSystem.model.Product;
-import com.tracker.ProductPriceTrackingSystem.model.ProductAddress;
 import com.tracker.ProductPriceTrackingSystem.repository.ProductRepository;
 import com.tracker.ProductPriceTrackingSystem.service.ProductService;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 

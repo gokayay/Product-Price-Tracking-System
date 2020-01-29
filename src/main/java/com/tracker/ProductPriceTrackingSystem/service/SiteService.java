@@ -27,4 +27,6 @@ public interface SiteService {
     Page<SiteDto> convertToDtoPage(Page<Site> site);
 
     Page<SiteDto> getPaginatedSitesDto(Pageable pageable);
+
+    Page<SiteDto> getPaginatedSiteNameDto(String site_name, Pageable pageable);
 }

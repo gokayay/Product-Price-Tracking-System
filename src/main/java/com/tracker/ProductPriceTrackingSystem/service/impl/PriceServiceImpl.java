@@ -1,7 +1,6 @@
 package com.tracker.ProductPriceTrackingSystem.service.impl;
 
 import com.tracker.ProductPriceTrackingSystem.dto.PriceDto;
-import com.tracker.ProductPriceTrackingSystem.dto.SiteDto;
 import com.tracker.ProductPriceTrackingSystem.exception.ObjectNotFoundException;
 import com.tracker.ProductPriceTrackingSystem.model.Price;
 import com.tracker.ProductPriceTrackingSystem.repository.PriceRepository;
@@ -15,7 +14,6 @@ import org.springframework.stereotype.Service;
 
 import java.lang.reflect.Type;
 import java.text.ParseException;
-import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -110,6 +108,11 @@ public class PriceServiceImpl implements PriceService {
     @Override
     public Page<PriceDto> getPaginatedPricesDto(Pageable pageable) {
         Page<PriceDto> resultPage = convertToDtoPage(priceRepository.findAll(pageable));
+        return resultPage;
+    }
+
+    public Page<PriceDto> getPaginatedPriceNameDto(String price, Pageable pageable) {
+        Page<PriceDto> resultPage = convertToDtoPage(priceRepository.findAllByNameContaining(price,pageable));
         return resultPage;
     }
 }

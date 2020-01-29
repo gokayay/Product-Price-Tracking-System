@@ -1,6 +1,5 @@
 package com.tracker.ProductPriceTrackingSystem.controller;
 
-import com.tracker.ProductPriceTrackingSystem.dto.ProductDto;
 import com.tracker.ProductPriceTrackingSystem.dto.SiteDto;
 import com.tracker.ProductPriceTrackingSystem.model.Site;
 import com.tracker.ProductPriceTrackingSystem.service.SiteService;
@@ -11,7 +10,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
 
 @RestController
 @RequestMapping("/site")
@@ -29,9 +27,17 @@ public class SiteController {
 
     @GetMapping("")
     @ResponseBody
-    public ResponseEntity<List<SiteDto>> findAllPaginatedDto(Pageable pageable) {
+    public ResponseEntity<Page> findAllPaginatedDto(Pageable pageable) {
         Page<SiteDto> resultPage = siteService.getPaginatedSitesDto(pageable);
-        return new ResponseEntity<>(resultPage.getContent(), HttpStatus.OK);
+        return new ResponseEntity<>(resultPage, HttpStatus.OK);
+    }
+
+    @GetMapping("/site-search")
+    @ResponseBody
+    public ResponseEntity<Page> findAllPaginatedDtoByName(Pageable pageable, @RequestParam(value = "") String site_name) {
+        Page<SiteDto> resultPage = siteService.getPaginatedSiteNameDto(site_name,pageable);
+
+        return new ResponseEntity<>(resultPage, HttpStatus.OK);
     }
 
     @GetMapping ("/{id}")

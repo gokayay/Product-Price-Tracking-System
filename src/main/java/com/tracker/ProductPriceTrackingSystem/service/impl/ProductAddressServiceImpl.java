@@ -110,4 +110,9 @@ public class ProductAddressServiceImpl implements ProductAddressService {
         Page<ProductAddressDto> resultPage = convertToDtoPage(productAddressRepository.findAll(pageable));
         return resultPage;
     }
+
+    public Page<ProductAddressDto> getPaginatedProductPathDto(String product_path, Pageable pageable) {
+        Page<ProductAddressDto> resultPage = convertToDtoPage(productAddressRepository.findAllByNameContaining(product_path,pageable));
+        return resultPage;
+    }
 }

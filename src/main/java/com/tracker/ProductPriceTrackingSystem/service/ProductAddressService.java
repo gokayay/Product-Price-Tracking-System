@@ -1,9 +1,7 @@
 package com.tracker.ProductPriceTrackingSystem.service;
 
 import com.tracker.ProductPriceTrackingSystem.dto.ProductAddressDto;
-import com.tracker.ProductPriceTrackingSystem.dto.SiteDto;
 import com.tracker.ProductPriceTrackingSystem.model.ProductAddress;
-import com.tracker.ProductPriceTrackingSystem.model.Site;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -29,4 +27,6 @@ public interface ProductAddressService {
     Page<ProductAddressDto> convertToDtoPage(Page<ProductAddress> productAddress);
 
     Page<ProductAddressDto> getPaginatedProductAddressesDto(Pageable pageable);
+
+    Page<ProductAddressDto> getPaginatedProductPathDto(String product_path, Pageable pageable);
 }

@@ -109,5 +109,10 @@ public class SiteServiceImpl implements SiteService {
         return resultPage;
     }
 
+    public Page<SiteDto> getPaginatedSiteNameDto(String site_name, Pageable pageable) {
+        Page<SiteDto> resultPage = convertToDtoPage(siteRepository.findAllByNameContaining(site_name,pageable));
+        return resultPage;
+    }
+
 
 }
