@@ -110,9 +110,9 @@ public class PriceServiceImpl implements PriceService {
         Page<PriceDto> resultPage = convertToDtoPage(priceRepository.findAll(pageable));
         return resultPage;
     }
-
+/*
     public Page<PriceDto> getPaginatedPriceNameDto(String price, Pageable pageable) {
         Page<PriceDto> resultPage = convertToDtoPage(priceRepository.findAllByNameContaining(price,pageable));
         return resultPage;
-    }
+    }*/
 }

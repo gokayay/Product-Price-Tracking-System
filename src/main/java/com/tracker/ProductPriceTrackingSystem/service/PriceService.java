@@ -28,5 +28,5 @@ public interface PriceService {
 
     Page<PriceDto> getPaginatedPricesDto(Pageable pageable);
 
-    Page<PriceDto> getPaginatedPriceNameDto(String price, Pageable pageable);
+   // Page<PriceDto> getPaginatedPriceNameDto(String price, Pageable pageable);
 }

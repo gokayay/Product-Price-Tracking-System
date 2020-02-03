@@ -15,7 +15,7 @@ public interface PriceRepository extends JpaRepository<Price,Long> {
    Optional<Price> findById(Long id);
 
    Page<Price> findAll(Pageable pageable);
-
-   @Query(value = "select * from prices where lower(price) like lower(concat('%',:price,'%')) ", nativeQuery = true)
-   Page<Price> findAllByNameContaining(String price, Pageable pageable);
+/*
+   @Query(value = "select * from prices, products where lower(product_name) like lower(concat('%',:product_name,'%')) ", nativeQuery = true)
+   Page<Price> findAllByNameContaining(String product_name, Pageable pageable);*/
 }
