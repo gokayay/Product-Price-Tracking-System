@@ -30,15 +30,15 @@ public class PriceController {
         Page<PriceDto> resultPage = priceService.getPaginatedPricesDto(pageable);
         return new ResponseEntity<>(resultPage, HttpStatus.OK);
     }
-/*
-    @GetMapping("/price-search")
+
+    @GetMapping("/prices-by-product/{id}")
     @ResponseBody
-    public ResponseEntity<Page> findAllPaginatedDtoByName(Pageable pageable, @RequestParam(value = "") String product_name) {
-        Page<PriceDto> resultPage = priceService.getPaginatedPriceNameDto(product_name,pageable);
+    public ResponseEntity<Page> findAllPaginatedDtoByProductId(@PathVariable long id,Pageable pageable) {
+        Page<PriceDto> resultPage = priceService.getPaginatedPriceProductIdDto(id,pageable);
 
         return new ResponseEntity<>(resultPage, HttpStatus.OK);
     }
-*/
+
     @GetMapping ("/{id}")
     public ResponseEntity<PriceDto> getOnePrice(@PathVariable Long id){
         return new ResponseEntity<>(priceService.onePriceDto(id), HttpStatus.OK) ;

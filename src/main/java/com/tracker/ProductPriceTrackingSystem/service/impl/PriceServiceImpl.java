@@ -83,7 +83,8 @@ public class PriceServiceImpl implements PriceService {
 
     private List<PriceDto> convertToDto(List<Price> price) {
         // Create Conversion Type
-        Type listType = new TypeToken<List<PriceDto>>() {}.getType();
+        Type listType = new TypeToken<List<PriceDto>>() {
+        }.getType();
         // Convert List of Entity objects to a List of DTOs objects
         List<PriceDto> returnValue = new ModelMapper().map(price, listType);
         return returnValue;
@@ -99,7 +100,8 @@ public class PriceServiceImpl implements PriceService {
     @Override
     public Page<PriceDto> convertToDtoPage(Page<Price> price) {
         // Create Conversion Type
-        Type listType = new TypeToken<Page<PriceDto>>() {}.getType();
+        Type listType = new TypeToken<Page<PriceDto>>() {
+        }.getType();
         // Convert List of Entity objects to a List of DTOs objects
         Page<PriceDto> returnValue = new ModelMapper().map(price, listType);
         return returnValue;
@@ -110,9 +112,9 @@ public class PriceServiceImpl implements PriceService {
         Page<PriceDto> resultPage = convertToDtoPage(priceRepository.findAll(pageable));
         return resultPage;
     }
-/*
-    public Page<PriceDto> getPaginatedPriceNameDto(String price, Pageable pageable) {
-        Page<PriceDto> resultPage = convertToDtoPage(priceRepository.findAllByNameContaining(price,pageable));
+
+    public Page<PriceDto> getPaginatedPriceProductIdDto(long id, Pageable pageable) {
+        Page<PriceDto> resultPage = convertToDtoPage(priceRepository.findAllByProductId(id, pageable));
         return resultPage;
-    }*/
+    }
 }
