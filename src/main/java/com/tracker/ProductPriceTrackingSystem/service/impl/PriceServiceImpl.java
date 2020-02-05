@@ -117,4 +117,8 @@ public class PriceServiceImpl implements PriceService {
         Page<PriceDto> resultPage = convertToDtoPage(priceRepository.findAllByProductId(id, pageable));
         return resultPage;
     }
+    public Page<PriceDto> getPaginatedPriceProductIdLast7DaysDto(long id, Pageable pageable) {
+        Page<PriceDto> resultPage = convertToDtoPage(priceRepository.findAllByProductIdLast7Days(id, pageable));
+        return resultPage;
+    }
 }

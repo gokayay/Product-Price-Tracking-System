@@ -39,6 +39,14 @@ public class PriceController {
         return new ResponseEntity<>(resultPage, HttpStatus.OK);
     }
 
+    @GetMapping("/prices-by-product-last-7-days/{id}")  // Denemek için client-side'da url değiştirildi!
+    @ResponseBody
+    public ResponseEntity<Page> findAllPaginatedDtoByProductIdLast7Days(@PathVariable long id,Pageable pageable) {
+        Page<PriceDto> resultPage = priceService.getPaginatedPriceProductIdLast7DaysDto(id,pageable);
+
+        return new ResponseEntity<>(resultPage, HttpStatus.OK);
+    }
+
     @GetMapping ("/{id}")
     public ResponseEntity<PriceDto> getOnePrice(@PathVariable Long id){
         return new ResponseEntity<>(priceService.onePriceDto(id), HttpStatus.OK) ;
