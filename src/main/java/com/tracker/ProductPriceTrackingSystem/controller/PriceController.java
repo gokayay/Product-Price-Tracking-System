@@ -47,6 +47,14 @@ public class PriceController {
         return new ResponseEntity<>(resultPage, HttpStatus.OK);
     }
 
+    @GetMapping("/daily-prices/{id}")
+    @ResponseBody
+    public ResponseEntity<Page> findAllDailyPrices(@PathVariable long id, Pageable pageable) {
+        Page<PriceDto> resultPage = priceService.getDailyPrices(id,pageable);
+
+        return new ResponseEntity<>(resultPage, HttpStatus.OK);
+    }
+
     @GetMapping ("/{id}")
     public ResponseEntity<PriceDto> getOnePrice(@PathVariable Long id){
         return new ResponseEntity<>(priceService.onePriceDto(id), HttpStatus.OK) ;

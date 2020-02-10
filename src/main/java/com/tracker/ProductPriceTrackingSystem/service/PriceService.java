@@ -31,4 +31,7 @@ public interface PriceService {
     Page<PriceDto> getPaginatedPriceProductIdDto(long id, Pageable pageable);
 
     Page<PriceDto> getPaginatedPriceProductIdLast7DaysDto(long id, Pageable pageable);
+
+    Page<PriceDto> getDailyPrices(long id, Pageable pageable);
+
 }

@@ -19,7 +19,10 @@ public interface PriceRepository extends JpaRepository<Price,Long> {
    @Query(value = "select * from prices where product_id=:product_id ", nativeQuery = true)
    Page<Price> findAllByProductId(Long product_id, Pageable pageable);
 
-   @Query(value = "select * from prices where product_id=:product_id and date > current_date - interval '7 days'", nativeQuery = true)
+   @Query(value = "select * from prices where product_id=:product_id and date > current_date - interval '20 days'", nativeQuery = true)
    Page<Price> findAllByProductIdLast7Days(Long product_id, Pageable pageable);
+
+   @Query(value = "select * from prices where product_id=:product_id and date > current_date - interval '24 hours' order by price", nativeQuery = true)
+   Page<Price> findDailyPrices(Long product_id, Pageable pageable);
 
 }
