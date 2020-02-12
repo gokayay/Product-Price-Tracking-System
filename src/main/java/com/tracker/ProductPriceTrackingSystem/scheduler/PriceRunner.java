@@ -20,7 +20,7 @@ import java.util.Date;
 import java.util.List;
 
 @Component
-public class PriceRunner implements CommandLineRunner {
+public class PriceRunner {
 
     PriceRunner(){}
 
@@ -33,11 +33,6 @@ public class PriceRunner implements CommandLineRunner {
     @Autowired
     private ProductAddressRepository productAddressRepository;
 
-
-    @Override
-    public void run(String... args) throws Exception {
-
-    }
 
     @Scheduled(fixedRate = 86400000) // 1 day
     public void PriceAdder(){
