@@ -18,6 +18,7 @@ import org.openqa.selenium.chrome.ChromeOptions;
 
 import java.util.Date;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 @Component
 public class PriceRunner {
@@ -53,25 +54,33 @@ public class PriceRunner {
         productAddressList.forEach((productAddress) -> {
 
             String productPath = productAddress.getProductPath();
+            System.out.println(productAddress.getProduct().getProductName() + " --> " + productAddress.getSite().getSiteName());
+            System.out.println(productAddress.getSite().getSiteName());
 
             driver.get(productPath);
-            WebElement element = driver.findElement(By.xpath(productAddress.getSite().getSiteXpath()));
-            String elementString = element.getText();
+            try {
+                WebElement element = driver.findElement(By.xpath(productAddress.getSite().getSiteXpath()));
 
-            double elementDouble = Smc.Converter1(elementString);
+                String elementString = element.getText();
 
-            System.out.println(elementDouble);
 
-            Price price = new Price();
-            Date date = new Date();
+                double elementDouble = Smc.Converter1(elementString);
 
-            price.setSite(productAddress.getSite());
-            price.setProduct(productAddress.getProduct());
-            price.setPrice(elementDouble);
-            price.setDate(date);
+                System.out.println(elementDouble);
 
-            priceRepository.save(price);
+                Price price = new Price();
+                Date date = new Date();
 
+                price.setSite(productAddress.getSite());
+                price.setProduct(productAddress.getProduct());
+                price.setPrice(elementDouble);
+                price.setDate(date);
+
+                priceRepository.save(price);
+            }
+            catch (NoSuchElementException e){
+                System.out.println("Product Address or Xpath Not Found");
+            }
         });
 
         driver.quit();
