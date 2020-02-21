@@ -10,21 +10,15 @@ import java.util.Optional;
 
 public interface SiteService {
 
-    void createSite(Site site);
+    void createSite(SiteDto site);
 
-    void updateSite(Long id, Site site);
+    void updateSite(Long id, SiteDto site);
 
     void deleteSite(long id);
 
-    List<Site> allSites();
-
-    Optional<Site> oneSite(Long id);
-
-    List<SiteDto> allSitesDto();
-
     SiteDto oneSiteDto(Long id);
 
-    Page<SiteDto> convertToDtoPage(Page<Site> site);
+    // Paginated Gets
 
     Page<SiteDto> getPaginatedSitesDto(Pageable pageable);
 

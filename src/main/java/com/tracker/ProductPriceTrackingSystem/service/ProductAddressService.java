@@ -10,21 +10,15 @@ import java.util.Optional;
 
 public interface ProductAddressService {
 
-    void createProductAddress(ProductAddress productAddress);
+    void createProductAddress(ProductAddressDto productAddress);
 
-    void updateProductAddress(Long id, ProductAddress productAddress);
+    void updateProductAddress(Long id, ProductAddressDto productAddress);
 
     void deleteProductAddress(Long id);
 
-    List<ProductAddress> allProductAddresses();
-
-    Optional<ProductAddress> oneProductAddress(Long id);
-
-    List<ProductAddressDto> allProductAddressesDto();
-
     ProductAddressDto oneProductAddressDto(Long id);
 
-    Page<ProductAddressDto> convertToDtoPage(Page<ProductAddress> productAddress);
+    //Paginated Gets
 
     Page<ProductAddressDto> getPaginatedProductAddressesDto(Pageable pageable);
 

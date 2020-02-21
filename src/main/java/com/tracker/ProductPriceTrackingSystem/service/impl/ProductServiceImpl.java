@@ -27,13 +27,16 @@ public class ProductServiceImpl implements ProductService {
     ModelMapper modelMapper;
 
     @Override
-    public void createProduct(Product product) {
-
-        productRepository.save(product);
+    public void createProduct(ProductDto product) {
+        try {
+            productRepository.save(convertToEntity(product));
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
-    public void updateProduct(Long id, Product product) {
+    public void updateProduct(Long id, ProductDto product) {
         Optional<Product> existedProduct = productRepository.findById(id);
 
         if (!existedProduct.isPresent())
@@ -54,27 +57,26 @@ public class ProductServiceImpl implements ProductService {
         productRepository.deleteById(id);
     }
 
-    @Override
-    public List<Product> allProducts() {
-        return (List<Product>) productRepository.findAll();
-    }
-
-    @Override
-    public Optional<Product> oneProduct(Long id) {
-        return productRepository.findById(id);
-    }
-
-    @Override
-    public List<ProductDto> allProductsDto() {
-        return convertToDto(productRepository.findAll());
-    }
+    // GET
 
     @Override
     public ProductDto oneProductDto(Long id) {
         return convertToDto(productRepository.findById(id));
     }
 
-    //////////
+    @Override
+    public Page<ProductDto> getPaginatedProductsDto(Pageable pageable) {
+        Page<ProductDto> resultPage = convertToDtoPage(productRepository.findAll(pageable));
+        return resultPage;
+    }
+
+    @Override
+    public Page<ProductDto> getPaginatedProductNameDto(String product_name,Pageable pageable) {
+        Page<ProductDto> resultPage = convertToDtoPage(productRepository.findAllByNameContaining(product_name,pageable));
+        return resultPage;
+    }
+
+    // CONVERTING DTO-ENTITY
 
     private ProductDto convertToDto(Optional<Product> product) {
         return modelMapper.map(product.get(), ProductDto.class);
@@ -95,31 +97,8 @@ public class ProductServiceImpl implements ProductService {
         return returnValue;
     }
 
-
     private Product convertToEntity(ProductDto productDto) throws ParseException {
 
         return modelMapper.map(productDto, Product.class);
-    }
-
-
-    /////////
-/*
-    public Page<Product> getPaginatedProducts(int pageNumber) {
-        PageRequest pageable = PageRequest.of(pageNumber - 1, 6);
-        Page<Product> resultPage = productRepository.findAll(pageable);
-        if (pageNumber > resultPage.getTotalPages()) {
-            throw new ObjectNotFoundException("Not Found Page Number:" + pageNumber);
-        }
-        return resultPage;
-    }
-*/
-    public Page<ProductDto> getPaginatedProductsDto(Pageable pageable) {
-        Page<ProductDto> resultPage = convertToDtoPage(productRepository.findAll(pageable));
-        return resultPage;
-    }
-
-    public Page<ProductDto> getPaginatedProductNameDto(String product_name,Pageable pageable) {
-        Page<ProductDto> resultPage = convertToDtoPage(productRepository.findAllByNameContaining(product_name,pageable));
-        return resultPage;
     }
 }

@@ -1,5 +1,6 @@
 package com.tracker.ProductPriceTrackingSystem.repository;
 
+import com.tracker.ProductPriceTrackingSystem.constants.SqlConstants;
 import com.tracker.ProductPriceTrackingSystem.model.ProductAddress;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -16,6 +17,6 @@ public interface ProductAddressRepository extends JpaRepository<ProductAddress,L
 
     Page<ProductAddress> findAll(Pageable pageable);
 
-    @Query(value = "select * from product_addresses where lower(product_path) like lower(concat('%',:product_path,'%')) ", nativeQuery = true)
+    @Query(value = SqlConstants.ProductAddressQuery.GetBySearch, nativeQuery = true)
     Page<ProductAddress> findAllByNameContaining(String product_path, Pageable pageable);
 }

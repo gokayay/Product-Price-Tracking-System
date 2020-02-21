@@ -27,14 +27,17 @@ public class ProductAddressServiceImpl implements ProductAddressService {
     ModelMapper modelMapper;
 
     @Override
-    public void createProductAddress(ProductAddress productAddress) {
+    public void createProductAddress(ProductAddressDto productAddress) {
 
-        productAddressRepository.save(productAddress);
+        try {
+            productAddressRepository.save(convertToEntity(productAddress));
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
     }
 
-
     @Override
-    public void updateProductAddress(Long id, ProductAddress productAddress) {
+    public void updateProductAddress(Long id, ProductAddressDto productAddress) {
         Optional<ProductAddress> existedProductAddress = productAddressRepository.findById(id);
 
         if (!existedProductAddress.isPresent())
@@ -48,35 +51,34 @@ public class ProductAddressServiceImpl implements ProductAddressService {
         productAddressRepository.save(exProductAddress);
     }
 
-
     @Override
     public void deleteProductAddress(Long id) {
 
         productAddressRepository.deleteById(id);
     }
 
-    @Override
-    public List<ProductAddress> allProductAddresses() {
-        return (List<ProductAddress>) productAddressRepository.findAll();
-    }
 
-    @Override
-    public Optional<ProductAddress> oneProductAddress(Long id) {
-        return productAddressRepository.findById(id);
-    }
-
-
-    @Override
-    public List<ProductAddressDto> allProductAddressesDto() {
-        return convertToDto(productAddressRepository.findAll());
-    }
+    // GET
 
     @Override
     public ProductAddressDto oneProductAddressDto(Long id) {
         return convertToDto(productAddressRepository.findById(id));
     }
 
-    //////////
+    @Override
+    public Page<ProductAddressDto> getPaginatedProductAddressesDto(Pageable pageable) {
+        Page<ProductAddressDto> resultPage = convertToDtoPage(productAddressRepository.findAll(pageable));
+        return resultPage;
+    }
+
+    @Override
+    public Page<ProductAddressDto> getPaginatedProductPathDto(String product_path, Pageable pageable) {
+        Page<ProductAddressDto> resultPage = convertToDtoPage(productAddressRepository.findAllByNameContaining(product_path,pageable));
+        return resultPage;
+    }
+
+
+    // CONVERTING DTO-ENTITY
 
     private ProductAddressDto convertToDto(Optional<ProductAddress> productAddress) {
         return modelMapper.map(productAddress.get(), ProductAddressDto.class);
@@ -92,27 +94,13 @@ public class ProductAddressServiceImpl implements ProductAddressService {
 
 
     private ProductAddress convertToEntity(ProductAddressDto productAddressDto) throws ParseException {
-
         return modelMapper.map(productAddressDto, ProductAddress.class);
     }
 
-
-    @Override
     public Page<ProductAddressDto> convertToDtoPage(Page<ProductAddress> productAddress) {
         Type listType = new TypeToken<Page<ProductAddressDto>>() {}.getType();
         // Convert List of Entity objects to a List of DTOs objects
         Page<ProductAddressDto> returnValue = new ModelMapper().map(productAddress, listType);
         return returnValue;
-    }
-
-    @Override
-    public Page<ProductAddressDto> getPaginatedProductAddressesDto(Pageable pageable) {
-        Page<ProductAddressDto> resultPage = convertToDtoPage(productAddressRepository.findAll(pageable));
-        return resultPage;
-    }
-
-    public Page<ProductAddressDto> getPaginatedProductPathDto(String product_path, Pageable pageable) {
-        Page<ProductAddressDto> resultPage = convertToDtoPage(productAddressRepository.findAllByNameContaining(product_path,pageable));
-        return resultPage;
     }
 }

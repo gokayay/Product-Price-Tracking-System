@@ -10,21 +10,15 @@ import java.util.Optional;
 
 public interface PriceService {
 
-    void createPrice(Price price);
+    void createPrice(PriceDto price);
 
-    void updatePrice(Long id, Price price);
+    void updatePrice(Long id, PriceDto price);
 
     void deletePrice(Long id);
 
-    List<Price> allPrices();
-
-    Optional<Price> onePrice(Long id);
-
-    List<PriceDto> allPricesDto();
-
     PriceDto onePriceDto(Long id);
 
-    Page<PriceDto> convertToDtoPage(Page<Price> price);
+    //Paginated Gets
 
     Page<PriceDto> getPaginatedPricesDto(Pageable pageable);
 

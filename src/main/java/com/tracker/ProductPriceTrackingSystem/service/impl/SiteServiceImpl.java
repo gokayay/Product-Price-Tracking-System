@@ -27,13 +27,17 @@ public class SiteServiceImpl implements SiteService {
     ModelMapper modelMapper;
 
     @Override
-    public void createSite(Site site) {
+    public void createSite(SiteDto site) {
 
-        siteRepository.save(site);
+        try {
+            siteRepository.save(convertToEntity(site));
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
-    public void updateSite(Long id, Site site) {
+    public void updateSite(Long id, SiteDto site) {
         Optional<Site> existedSite = siteRepository.findById(id);
 
         if (!existedSite.isPresent()) throw new ObjectNotFoundException("E-commerce site not found");
@@ -54,28 +58,29 @@ public class SiteServiceImpl implements SiteService {
         siteRepository.deleteById(id);
     }
 
-    @Override
-    public List<Site> allSites() {
-        return (List<Site>) siteRepository.findAll();
-    }
 
-    @Override
-    public Optional<Site> oneSite(Long id) {
-        return siteRepository.findById(id);
-    }
-
-    @Override
-    public List<SiteDto> allSitesDto() {
-        return convertToDto(siteRepository.findAll());
-    }
+    // GET
 
     @Override
     public SiteDto oneSiteDto(Long id) {
         return convertToDto(siteRepository.findById(id));
     }
 
+    @Override
+    public Page<SiteDto> getPaginatedSitesDto(Pageable pageable) {
+        Page<SiteDto> resultPage = convertToDtoPage(siteRepository.findAll(pageable));
+        return resultPage;
+    }
 
-//////////
+    @Override
+    public Page<SiteDto> getPaginatedSiteNameDto(String site_name, Pageable pageable) {
+        Page<SiteDto> resultPage = convertToDtoPage(siteRepository.findAllByNameContaining(site_name,pageable));
+        return resultPage;
+    }
+
+
+
+    // CONVERTING DTO-ENTITY
 
     private SiteDto convertToDto(Optional<Site> site) {
         return modelMapper.map(site.get(), SiteDto.class);
@@ -93,8 +98,6 @@ public class SiteServiceImpl implements SiteService {
         return modelMapper.map(siteDto, Site.class);
     }
 
-
-    @Override
     public Page<SiteDto> convertToDtoPage(Page<Site> site) {
         // Create Conversion Type
         Type listType = new TypeToken<Page<SiteDto>>() {}.getType();
@@ -102,17 +105,5 @@ public class SiteServiceImpl implements SiteService {
         Page<SiteDto> returnValue = new ModelMapper().map(site, listType);
         return returnValue;
     }
-
-    @Override
-    public Page<SiteDto> getPaginatedSitesDto(Pageable pageable) {
-        Page<SiteDto> resultPage = convertToDtoPage(siteRepository.findAll(pageable));
-        return resultPage;
-    }
-
-    public Page<SiteDto> getPaginatedSiteNameDto(String site_name, Pageable pageable) {
-        Page<SiteDto> resultPage = convertToDtoPage(siteRepository.findAllByNameContaining(site_name,pageable));
-        return resultPage;
-    }
-
 
 }

@@ -1,7 +1,6 @@
 package com.tracker.ProductPriceTrackingSystem.controller;
 
 import com.tracker.ProductPriceTrackingSystem.dto.SiteDto;
-import com.tracker.ProductPriceTrackingSystem.model.Site;
 import com.tracker.ProductPriceTrackingSystem.service.SiteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -18,13 +17,9 @@ public class SiteController {
     @Autowired
     SiteService siteService;
 
-    /*
-    @GetMapping(value = "")
-    public ResponseEntity<List<SiteDto>> getSites()
-    {
-        return new ResponseEntity<>(siteService.allSitesDto(), HttpStatus.OK);
-    }*/
+    // GET
 
+    //for get all sites
     @GetMapping("")
     @ResponseBody
     public ResponseEntity<Page> findAllPaginatedDto(Pageable pageable) {
@@ -32,6 +27,7 @@ public class SiteController {
         return new ResponseEntity<>(resultPage, HttpStatus.OK);
     }
 
+    //for get sites by search
     @GetMapping("/site-search")
     @ResponseBody
     public ResponseEntity<Page> findAllPaginatedDtoByName(Pageable pageable, @RequestParam(value = "") String site_name) {
@@ -40,16 +36,21 @@ public class SiteController {
         return new ResponseEntity<>(resultPage, HttpStatus.OK);
     }
 
+    //for get one site from db
     @GetMapping ("/{id}")
     public ResponseEntity<SiteDto> getOneSite(@PathVariable Long id){
         return new ResponseEntity<>(siteService.oneSiteDto(id), HttpStatus.OK);
     }
 
+    // POST
+
     @PostMapping(value = "")
-    public ResponseEntity<String> create(@RequestBody Site site) {
+    public ResponseEntity<String> create(@RequestBody SiteDto site) {
         siteService.createSite(site);
         return new ResponseEntity<>("created", HttpStatus.OK);
     }
+
+    // DELETE
 
     @DeleteMapping("/{id}")
     public ResponseEntity<String> delete(@PathVariable  Long id) {
@@ -57,8 +58,10 @@ public class SiteController {
         return new ResponseEntity<>("deleted", HttpStatus.OK);
     }
 
+    // PUT
+
     @PutMapping("/{id}")
-    public ResponseEntity<String> update(@PathVariable  Long id,@RequestBody Site site){
+    public ResponseEntity<String> update(@PathVariable  Long id,@RequestBody SiteDto site){
         siteService.updateSite(id, site);
         return new ResponseEntity<>("updated", HttpStatus.OK);
     }

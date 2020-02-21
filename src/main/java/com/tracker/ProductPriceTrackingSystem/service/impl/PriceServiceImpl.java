@@ -27,12 +27,16 @@ public class PriceServiceImpl implements PriceService {
     ModelMapper modelMapper;
 
     @Override
-    public void createPrice(Price price) {
-        priceRepository.save(price);
+    public void createPrice(PriceDto price) {
+        try {
+            priceRepository.save(convertToEntity(price));
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
-    public void updatePrice(Long id, Price price) {
+    public void updatePrice(Long id, PriceDto price) {
         Optional<Price> existedPrice = priceRepository.findById(id);
 
         if (!existedPrice.isPresent())
@@ -40,7 +44,7 @@ public class PriceServiceImpl implements PriceService {
 
         Price exPrice = existedPrice.get();
 
-        //exPrice.setProduct(price.getProduct());
+        exPrice.setProduct(price.getProduct());
         exPrice.setSite(price.getSite());
         exPrice.setDate(price.getDate());
         exPrice.setPrice(price.getPrice());
@@ -55,27 +59,40 @@ public class PriceServiceImpl implements PriceService {
         priceRepository.deleteById(id);
     }
 
-    @Override
-    public List<Price> allPrices() {
-        return (List<Price>) priceRepository.findAll();
-    }
 
-    @Override
-    public Optional<Price> onePrice(Long id) {
-        return priceRepository.findById(id);
-    }
-
-    @Override
-    public List<PriceDto> allPricesDto() {
-        return convertToDto(priceRepository.findAll());
-    }
+    // GET
 
     @Override
     public PriceDto onePriceDto(Long id) {
         return convertToDto(priceRepository.findById(id));
     }
 
-    //////////
+    @Override
+    public Page<PriceDto> getPaginatedPricesDto(Pageable pageable) {
+        Page<PriceDto> resultPage = convertToDtoPage(priceRepository.findAll(pageable));
+        return resultPage;
+    }
+
+    @Override
+    public Page<PriceDto> getPaginatedPriceProductIdDto(long id, Pageable pageable) {
+        Page<PriceDto> resultPage = convertToDtoPage(priceRepository.findAllByProductId(id, pageable));
+        return resultPage;
+    }
+
+    @Override
+    public Page<PriceDto> getPaginatedPriceProductIdLast7DaysDto(long id, Pageable pageable) {
+        Page<PriceDto> resultPage = convertToDtoPage(priceRepository.findAllByProductIdLast7Days(id, pageable));
+        return resultPage;
+    }
+
+    @Override
+    public Page<PriceDto> getDailyPrices(long id, Pageable pageable) {
+        Page<PriceDto> resultPage = convertToDtoPage(priceRepository.findDailyPrices(id,pageable));
+        return resultPage;
+    }
+
+
+    // CONVERTING DTO-ENTITY
 
     private PriceDto convertToDto(Optional<Price> price) {
         return modelMapper.map(price.get(), PriceDto.class);
@@ -97,7 +114,6 @@ public class PriceServiceImpl implements PriceService {
     }
 
 
-    @Override
     public Page<PriceDto> convertToDtoPage(Page<Price> price) {
         // Create Conversion Type
         Type listType = new TypeToken<Page<PriceDto>>() {
@@ -105,25 +121,5 @@ public class PriceServiceImpl implements PriceService {
         // Convert List of Entity objects to a List of DTOs objects
         Page<PriceDto> returnValue = new ModelMapper().map(price, listType);
         return returnValue;
-    }
-
-    @Override
-    public Page<PriceDto> getPaginatedPricesDto(Pageable pageable) {
-        Page<PriceDto> resultPage = convertToDtoPage(priceRepository.findAll(pageable));
-        return resultPage;
-    }
-
-    public Page<PriceDto> getPaginatedPriceProductIdDto(long id, Pageable pageable) {
-        Page<PriceDto> resultPage = convertToDtoPage(priceRepository.findAllByProductId(id, pageable));
-        return resultPage;
-    }
-    public Page<PriceDto> getPaginatedPriceProductIdLast7DaysDto(long id, Pageable pageable) {
-        Page<PriceDto> resultPage = convertToDtoPage(priceRepository.findAllByProductIdLast7Days(id, pageable));
-        return resultPage;
-    }
-
-    public Page<PriceDto> getDailyPrices(long id, Pageable pageable) {
-        Page<PriceDto> resultPage = convertToDtoPage(priceRepository.findDailyPrices(id,pageable));
-        return resultPage;
     }
 }

@@ -1,7 +1,6 @@
 package com.tracker.ProductPriceTrackingSystem.controller;
 
 import com.tracker.ProductPriceTrackingSystem.dto.ProductAddressDto;
-import com.tracker.ProductPriceTrackingSystem.model.ProductAddress;
 import com.tracker.ProductPriceTrackingSystem.service.ProductAddressService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -18,13 +17,9 @@ public class ProductAddressController {
     @Autowired
     ProductAddressService productAddressService;
 
-/*
-    @GetMapping(value = "")
-    public ResponseEntity<List<ProductAddressDto>> getProductAddress() {
-        return new ResponseEntity<>(productAddressService.allProductAddressesDto(), HttpStatus.OK);
-    }*/
+    // GET
 
-
+    //for get all product addresses
     @GetMapping("")
     @ResponseBody
     public ResponseEntity<Page> findAllPaginatedDto(Pageable pageable) {
@@ -33,6 +28,7 @@ public class ProductAddressController {
         return new ResponseEntity<>(resultPage, HttpStatus.OK);
     }
 
+    //for get product addresses by search
     @GetMapping("/product-address-search")
     @ResponseBody
     public ResponseEntity<Page> findAllPaginatedDtoByName(Pageable pageable, @RequestParam(value = "") String product_path) {
@@ -41,16 +37,21 @@ public class ProductAddressController {
         return new ResponseEntity<>(resultPage, HttpStatus.OK);
     }
 
+    //for get only one product address from db
     @GetMapping ("/{id}")
     public ResponseEntity<ProductAddressDto> getOneProductAddress(@PathVariable Long id){
         return new ResponseEntity<>(productAddressService.oneProductAddressDto(id), HttpStatus.OK);
     }
 
+    // POST
+
     @PostMapping(value = "")
-    public ResponseEntity<String> create(@RequestBody ProductAddress productAddress) {
+    public ResponseEntity<String> create(@RequestBody ProductAddressDto productAddress) {
         productAddressService.createProductAddress(productAddress);
         return new ResponseEntity<>("created", HttpStatus.OK);
     }
+
+    // DELETE
 
     @DeleteMapping("/{id}")
     public ResponseEntity<String> delete(@PathVariable  Long id) {
@@ -58,8 +59,10 @@ public class ProductAddressController {
         return new ResponseEntity<>("deleted", HttpStatus.OK);
     }
 
+    // PUT
+
     @PutMapping("/{id}")
-    public ResponseEntity<String> update(@PathVariable  Long id,@RequestBody  ProductAddress productAddress){
+    public ResponseEntity<String> update(@PathVariable  Long id,@RequestBody  ProductAddressDto productAddress){
         productAddressService.updateProductAddress(id,productAddress);
         return new ResponseEntity<>("updated", HttpStatus.OK);
     }
