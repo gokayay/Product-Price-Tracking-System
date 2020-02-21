@@ -55,7 +55,6 @@ public class PriceRunner {
 
             String productPath = productAddress.getProductPath();
             System.out.println(productAddress.getProduct().getProductName() + " --> " + productAddress.getSite().getSiteName());
-            System.out.println(productAddress.getSite().getSiteName());
 
             driver.get(productPath);
             try {
